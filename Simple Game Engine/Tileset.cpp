@@ -8,12 +8,14 @@ Tileset::Tileset(Texture& tex, int tsize = 16, float tscale = 0.5):
 	int tileNumberH = texture.getHeight() / tsize;
 	for (int y = 0; y < tileNumberH; y++) {
 		for (int x = 0; x < tileNumberW; x++) {
-			Rectangle r = { x, y, x + tsize, y + tsize };
+			int xcorner = x * tsize;
+			int ycorner = y * tsize;
+			Rectangle r = { xcorner, ycorner, xcorner + tsize, ycorner + tsize };
 			tileList.push_back(r);
 		}
 	}
 
-	tileRatio = tsize / texture.getWidth();
+	tileRatio = tileNumberW;
 }
 
 Rectangle Tileset::getRect(int id)

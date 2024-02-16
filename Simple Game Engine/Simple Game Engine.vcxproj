@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(ProjectDir)Externals\SDL2_image-2.6.3\include;$(ProjectDir)Externals\SDL2\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\Externals\SDL2\lib\x64;$(SolutionDir)\Externals\SDL2_image-2.6.3\lib\x64;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)Externals\SDL2\lib\x64;$(ProjectDir)Externals\SDL2_image-2.6.3\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

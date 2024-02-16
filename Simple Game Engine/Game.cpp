@@ -126,6 +126,7 @@ void Game::load() {
 
 	//test Tilemap
 	Actor* tmActor= new Actor();
+	tmActor->setScale(5);
 	Tileset* tset = new Tileset(Assets::getTexture("TerrainTileset"), 16, 1);
 	Tilemap* tmap = new Tilemap(tset);
 	TilemapSpriteComponent* tmsc = new TilemapSpriteComponent(tmActor, tmap);
