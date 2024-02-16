@@ -1,0 +1,19 @@
+#include "Tilemap.h"
+
+Tilemap::Tilemap(Tileset* tset): TilesetUsed(tset)
+{
+    TilemapContent = { {0,0},
+                        {0,0} };
+}
+
+int Tilemap::getTileIdAtPos(float posx, float posy)
+{
+    return TilemapContent[posx][posy];
+}
+
+Vector2 Tilemap::getPosGridToLocal(float posx,float posy)
+{
+    float x = posx * TilesetUsed->getTileSize() * TilesetUsed->getTileRatio();
+    float y = posy * TilesetUsed->getTileSize() * TilesetUsed->getTileRatio();
+    return Vector2(x,y);
+}

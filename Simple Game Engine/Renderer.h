@@ -35,6 +35,8 @@ public:
 	void drawSprites();
 	void drawSprite(const Actor& actor, const class Texture& tex, Rectangle srcRect, Vector2 origin, Flip flip) const;
 
+	void drawSprite(Vector2 position, float rotation, float scale, const Texture& tex, Rectangle srcRect, Vector2 origin, Flip flip) const;
+
 	inline SDL_Renderer* toSDLRenderer() const { return SDLRenderer; }
 	void close();
 

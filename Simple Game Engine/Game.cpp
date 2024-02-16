@@ -4,6 +4,7 @@
 #include "AnimSpriteComponent.h"
 #include "Timer.h"
 #include "Assets.h"
+#include "TilemapSpriteComponent.h"
 #include "BackgroundSpriteComponent.h"
 #include <iostream>
 #include <algorithm>
@@ -115,7 +116,21 @@ void Game::removeActor(Actor* actor) {
 }
 
 void Game::load() {
-	Assets::loadTexture(renderer,"Res/Ship01.png","Ship");
+	Assets::loadTexture(renderer,"Res/Ship.png","Ship");
+	Assets::loadTexture(renderer, "Res/TerrainSimplifiedTileset.png", "TerrainTileset");
+
+	Actor* ship = new Actor();
+	SpriteComponent* sc = new SpriteComponent(ship, Assets::getTexture("Ship"));
+	ship->addComponent(sc);
+	ship->setPosition(Vector2(100, 100));
+
+	//test Tilemap
+	Actor* tmActor= new Actor();
+	Tileset* tset = new Tileset(Assets::getTexture("TerrainTileset"), 16, 1);
+	Tilemap* tmap = new Tilemap(tset);
+	TilemapSpriteComponent* tmsc = new TilemapSpriteComponent(tmActor, tmap);
+
+	
 }
 
 void Game::unload() {

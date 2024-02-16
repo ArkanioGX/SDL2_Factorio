@@ -67,10 +67,15 @@ void Renderer::drawSprites()
 
 void Renderer::drawSprite(const Actor& actor, const Texture& tex, Rectangle srcRect, Vector2 origin, Flip flip) const
 {
-	SDL_Rect dstRect;
 	Vector2 position = actor.getPosition();
 	float rotation = actor.getRotation();
 	float scale = actor.getScale();
+	drawSprite(position, rotation, scale, tex, srcRect, origin, flip);
+}
+
+void Renderer::drawSprite(Vector2 position, float rotation,float scale, const Texture& tex, Rectangle srcRect, Vector2 origin, Flip flip) const
+{
+	SDL_Rect dstRect;
 
 	dstRect.w = static_cast<int>(tex.getWidth() * scale);
 	dstRect.h = static_cast<int>(tex.getHeight() * scale);
@@ -99,7 +104,7 @@ void Renderer::drawSprite(const Actor& actor, const Texture& tex, Rectangle srcR
 	);
 
 	delete srcSDL;
-	
+
 }
 
 void Renderer::close() {
