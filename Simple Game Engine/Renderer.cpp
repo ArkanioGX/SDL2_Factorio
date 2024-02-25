@@ -4,6 +4,7 @@
 #include "Maths.h"
 #include "SpriteComponent.h"
 #include <SDL_image.h>
+#include "Camera.h"
 
 Renderer::Renderer() : SDLRenderer(nullptr) {
 
@@ -77,11 +78,20 @@ void Renderer::drawSprite(Vector2 position, float rotation,float scale, const Te
 {
 	SDL_Rect dstRect;
 
-	dstRect.w = static_cast<int>(tex.getWidth() * scale);
-	dstRect.h = static_cast<int>(tex.getHeight() * scale);
+	Vector2 camPos = Vector2::zero;
+	float camZoom = 1;
 
-	dstRect.x = static_cast<int>(position.x - origin.x);
-	dstRect.y = static_cast<int>(position.y - origin.y);
+
+	if (Camera::mainCam != nullptr) {
+		camZoom = Camera::mainCam->getZoom();
+		camPos = Camera::mainCam->getPos() * camZoom;
+	}
+
+	dstRect.w = static_cast<int>(tex.getWidth() * scale * camZoom);
+	dstRect.h = static_cast<int>(tex.getHeight() * scale* camZoom);
+
+	dstRect.x = static_cast<int>(((position.x - origin.x) * camZoom) - camPos.x + (WINDOW_WIDTH/2));
+	dstRect.y = static_cast<int>(((position.y  - origin.y) * camZoom) - camPos.y + (WINDOW_HEIGHT / 2));
 
 	SDL_Rect* srcSDL = nullptr;
 	if (srcRect != Rectangle::nullRect) {

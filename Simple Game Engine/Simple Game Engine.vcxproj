@@ -143,6 +143,8 @@
     <ClCompile Include="AnimSpriteComponent.cpp" />
     <ClCompile Include="Assets.cpp" />
     <ClCompile Include="BackgroundSpriteComponent.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CameraControllerComponent.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Component.cpp" />
@@ -168,6 +170,8 @@
     <ClInclude Include="AnimSpriteComponent.h" />
     <ClInclude Include="Assets.h" />
     <ClInclude Include="BackgroundSpriteComponent.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="CameraControllerComponent.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Component.h" />

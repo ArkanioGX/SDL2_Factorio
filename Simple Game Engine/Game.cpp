@@ -8,6 +8,8 @@
 #include "BackgroundSpriteComponent.h"
 #include <iostream>
 #include <algorithm>
+#include "Camera.h"
+#include "CameraControllerComponent.h"
 
 bool Game::initialize() {
 	bool isWindowInit = window.initialize();
@@ -118,6 +120,12 @@ void Game::removeActor(Actor* actor) {
 void Game::load() {
 	Assets::loadTexture(renderer,"Res/Ship.png","Ship");
 	Assets::loadTexture(renderer, "Res/TerrainSimplifiedTileset.png", "TerrainTileset");
+
+	Actor* camActor = new Actor();
+	Camera* camera = new Camera(camActor,Vector2(400,400),2);
+	camActor->addComponent(camera);
+	CameraControllerComponent* CCC = new CameraControllerComponent(camActor);
+	camActor->addComponent(CCC);
 
 	Actor* ship = new Actor();
 	SpriteComponent* sc = new SpriteComponent(ship, Assets::getTexture("Ship"));
