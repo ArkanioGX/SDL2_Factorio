@@ -87,8 +87,8 @@ void Renderer::drawSprite(Vector2 position, float rotation,float scale, const Te
 		camPos = Camera::mainCam->getPos() * camZoom;
 	}
 
-	dstRect.w = static_cast<int>(tex.getWidth() * scale * camZoom);
-	dstRect.h = static_cast<int>(tex.getHeight() * scale* camZoom);
+	dstRect.w = static_cast<int>(tex.getWidth() * scale * camZoom) + 1 ;
+	dstRect.h = static_cast<int>(tex.getHeight() * scale* camZoom) + 1;
 
 	dstRect.x = static_cast<int>(((position.x - origin.x) * camZoom) - camPos.x + (WINDOW_WIDTH/2));
 	dstRect.y = static_cast<int>(((position.y  - origin.y) * camZoom) - camPos.y + (WINDOW_HEIGHT / 2));

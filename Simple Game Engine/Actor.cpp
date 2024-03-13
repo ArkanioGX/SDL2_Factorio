@@ -22,17 +22,19 @@ Actor::~Actor() {
 	}
 }
 
-void Actor::processInput(const Uint8* keyState)
+void Actor::processInput(const InputState& inputState)
 {
-	if (state == Actor::ActorState::Active) {
-		for (auto component : components) {
-			component->processInput(keyState);
+	if (state == Actor::ActorState::Active)
+	{
+		for (auto component : components)
+		{
+			component->processInput(inputState);
 		}
-		actorInput(keyState);
+		actorInput(inputState);
 	}
 }
 
-void Actor::actorInput(const Uint8* keyState)
+void Actor::actorInput(const InputState& inputState)
 {
 }
 

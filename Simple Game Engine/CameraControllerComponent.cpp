@@ -1,6 +1,7 @@
 #include "CameraControllerComponent.h"
 #include <SDL_scancode.h>
 #include "Log.h"
+#include "Game.h"
 #include "Actor.h"
 #include <SDL.h>
 
@@ -16,29 +17,24 @@ zoomSpeed(0.1)
 {
 }
 
-void CameraControllerComponent::processInput(const Uint8* keyState)
+void CameraControllerComponent::processInput(const InputState& inputState)
 {
-	int vspd = (keyState[downKey] == true) - (keyState[upKey] == true);
-	int hspd = (keyState[rightKey] == true) - (keyState[leftKey] == true);
+	int vspd = (inputState.keyboard.getKeyValue(SDL_SCANCODE_S)) - (inputState.keyboard.getKeyValue(SDL_SCANCODE_W));
+	int hspd = (inputState.keyboard.getKeyValue(SDL_SCANCODE_D)) - (inputState.keyboard.getKeyValue(SDL_SCANCODE_A));
 
 	velocity = Vector2(hspd, vspd) * maxSpeed;
-	
+
 	Log::info("Test");
 
-	SDL_Event event;
-	while (SDL_PollEvent(&event))
+	if (inputState.mouse.getScrollWheel().y > 0) // scroll up
 	{
-		if (event.wheel.y > 0) // scroll up
-		{
-			cam->setZoom(cam->getZoom() + zoomSpeed);
-			Log::info("Up");
-		}
-		else if (event.wheel.y < 0) // scroll down
-		{
-			cam->setZoom(cam->getZoom() - zoomSpeed);
-			Log::info("Down");
-		}
-		Log::info(std::to_string(event.wheel.y));
+		cam->setZoom(cam->getZoom() + zoomSpeed);
+		Log::info("Up");
+	}
+	else if (inputState.mouse.getScrollWheel().y < 0) // scroll down
+	{
+		cam->setZoom(cam->getZoom() - zoomSpeed);
+		Log::info("Down");
 	}
 }
 

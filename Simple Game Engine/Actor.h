@@ -30,8 +30,8 @@ public:
 	Actor(const Actor&) = delete;
 	Actor& operator=(const Actor&) = delete;
 
-	void processInput(const Uint8* keyState);
-	virtual void actorInput(const Uint8* keyState);
+	void processInput(const struct InputState& inputState);
+	virtual void actorInput(const struct InputState& inputState);
 
 	Game& getGame() const { return game; }
 	const ActorState getState() const { return state; }

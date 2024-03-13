@@ -11,7 +11,7 @@ public:
 	CameraControllerComponent(const CameraControllerComponent&) = delete;
 	CameraControllerComponent& operator=(const CameraControllerComponent&) = delete;
 
-	void processInput(const Uint8* keyState);
+	void processInput(const struct InputState& inputState) override;
 
 	void update(float dt);
 

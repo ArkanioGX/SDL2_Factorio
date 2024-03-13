@@ -3,6 +3,7 @@
 #include "Window.h"
 #include "Renderer.h"
 #include "Vector2.h"
+#include "InputSystem.h"
 #include "Timer.h"
 #include "Actor.h"
 #include "Assets.h"
@@ -52,6 +53,7 @@ private:
 
 	Window window;
 	bool isRunning;
+	InputSystem inputSystem;
 	Renderer renderer;
 
 	Actor* player;

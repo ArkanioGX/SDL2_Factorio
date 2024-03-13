@@ -17,8 +17,9 @@ bool Game::initialize() {
 
 	int windowHeight = window.getHeight();
 	int windowWidth = window.getWidth();
+	bool isInputInit = inputSystem.initialize();
 
-	return isWindowInit && isRendererInit;
+	return isWindowInit && isRendererInit && isInputInit;
 }
 
 void Game::loop() {
@@ -40,24 +41,29 @@ void Game::close() {
 }
 
 void Game::processInput() {
+	inputSystem.preUpdate();
+
+	// SDL Event
 	SDL_Event event;
 	while (SDL_PollEvent(&event))
 	{
-		switch (event.type) {
-		case SDL_QUIT:
-			isRunning = false;
-			break;
-		}
+		isRunning = inputSystem.processEvent(event);
 	}
-	const Uint8* keyboardState = SDL_GetKeyboardState(nullptr);
 
-	if (keyboardState[SDL_SCANCODE_ESCAPE]) {
+	inputSystem.update();
+	const InputState& input = inputSystem.getInputState();
+
+	// Escape: quit game
+	if (input.keyboard.getKeyState(SDL_SCANCODE_ESCAPE) == ButtonState::Released)
+	{
 		isRunning = false;
 	}
 
+	// Actor input
 	isUpdatingActors = true;
-	for (auto actor:actors){
-		actor->processInput(keyboardState);
+	for (auto actor : actors)
+	{
+		actor->processInput(input);
 	}
 	isUpdatingActors = false;
 }
