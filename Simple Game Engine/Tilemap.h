@@ -3,8 +3,9 @@
 #include <vector>
 #include <string>
 #include "Vector2.h"
+#include "Component.h"
 
-class Tilemap
+class Tilemap : public Component
 {
 private:
 	Tileset* TilesetUsed;
@@ -13,7 +14,7 @@ private:
 
 	Vector2 maxTile;
 public:
-	Tilemap(Tileset* tset);
+	Tilemap(Actor* ownerP, Tileset* tset);
 
 	int getTileIdAtPos(float posx, float posy);
 
@@ -25,8 +26,10 @@ public:
 
 	Texture& getTexture() { return TilesetUsed->getTileText(); }
 
-	Vector2 getGridPosFromWorld(float posx, float posy, Actor* tmapActor);
 
 	Tileset* getTileset() { return TilesetUsed; };
+
+	Vector2 getGridPosFromScreen(float posx, float posy);
+	Vector2 getGridPosFromWorld(float posx, float posy);
 };
 

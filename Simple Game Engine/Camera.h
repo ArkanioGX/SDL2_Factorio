@@ -19,6 +19,8 @@ public:
 	Vector2 getPos();
 	float getZoom() const { return zoom; }
 
+	Vector2 getScreenPosInWorld(Vector2 pos);
+
 	void setZoom(float z);
 };
 

@@ -34,6 +34,7 @@ void CameraControllerComponent::processInput(const InputState& inputState)
 		currentZoom = Maths::clamp(currentZoom - zoomSpeed, minZoom, maxZoom);
 	}
 	cam->setZoom(currentZoom);
+
 }
 
 void CameraControllerComponent::update(float dt)

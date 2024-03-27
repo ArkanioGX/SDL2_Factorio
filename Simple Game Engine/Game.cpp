@@ -132,7 +132,7 @@ void Game::load() {
 
 	
 	Actor* camActor = new Actor();
-	Camera* camera = new Camera(camActor,Vector2(400,400),2);
+	Camera* camera = new Camera(camActor,Vector2(0,0),2);
 	CameraControllerComponent* CCC = new CameraControllerComponent(camActor);
 
 	//test Tilemap
