@@ -32,6 +32,8 @@ void Game::loop() {
 		render();
 		timer.delayTime();
 	}
+	
+
 }
 
 void Game::close() {
@@ -126,22 +128,17 @@ void Game::removeActor(Actor* actor) {
 void Game::load() {
 	Assets::loadTexture(renderer,"Res/Ship.png","Ship");
 	Assets::loadTexture(renderer, "Res/TerrainSimplifiedTileset.png", "TerrainTileset");
+	Assets::loadTexture(renderer, "Res/TestTileset.png", "TestTileset");
 
+	
 	Actor* camActor = new Actor();
 	Camera* camera = new Camera(camActor,Vector2(400,400),2);
-	camActor->addComponent(camera);
 	CameraControllerComponent* CCC = new CameraControllerComponent(camActor);
-	camActor->addComponent(CCC);
-
-	Actor* ship = new Actor();
-	SpriteComponent* sc = new SpriteComponent(ship, Assets::getTexture("Ship"));
-	ship->addComponent(sc);
-	ship->setPosition(Vector2(100, 100));
 
 	//test Tilemap
+	
 	Actor* tmActor= new Actor();
-	tmActor->setScale(5);
-	Tileset* tset = new Tileset(Assets::getTexture("TerrainTileset"), 16, 1);
+	Tileset* tset = new Tileset(Assets::getTexture("TestTileset"), 16);
 	Tilemap* tmap = new Tilemap(tset);
 	TilemapSpriteComponent* tmsc = new TilemapSpriteComponent(tmActor, tmap);
 

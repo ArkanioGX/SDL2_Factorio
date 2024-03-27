@@ -36,11 +36,12 @@ public:
 	Game& getGame() const { return game; }
 	const ActorState getState() const { return state; }
 	const Vector2 getPosition() const { return position; }
-	const float getScale() const { return scale; }
+	const Vector2 getScale() const { return scale; }
 	const float getRotation() const { return rotation; }
 	const Vector2 getForward() const;
 
 	void setPosition(Vector2 positionP);
+	void setScale(Vector2 scaleP);
 	void setScale(float scaleP);
 	void setRotation(float rotation);
 	void setState(ActorState as) { state = as; };
@@ -75,7 +76,7 @@ private:
 	Game& game;
 	ActorState state;
 	Vector2 position;
-	float scale;
+	Vector2 scale;
 	float rotation;  // Rotation in radians.
 	Tag actorTag;
 

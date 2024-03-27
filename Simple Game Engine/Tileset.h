@@ -10,12 +10,12 @@ using namespace std;
 class Tileset
 {
 public:
-	Tileset(Texture& tex, int tsize, float tscale);
+	Tileset(Texture& tex, int tsize);
 
 	Rectangle getRect(int id);
 
 	int getTileSize() { return tileSize; }
-	float getTileRatio() { return tileRatio; }
+	Vector2 getTileRatio() { return tileRatio; }
 
 	Texture& getTileText() { return texture; }
 
@@ -23,7 +23,7 @@ private:
 	Texture& texture;
 	int tileSize = 16;
 
-	float tileRatio;
+	Vector2 tileRatio;
 
 	int maxTile;
 

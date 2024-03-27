@@ -27,5 +27,9 @@ private:
 	int rightKey;
 
 	Camera* cam;
+
+	float currentZoom = 1;
+	float minZoom = 0.5;
+	float maxZoom = 5;
 };
 

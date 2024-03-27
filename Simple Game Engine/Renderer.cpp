@@ -70,11 +70,11 @@ void Renderer::drawSprite(const Actor& actor, const Texture& tex, Rectangle srcR
 {
 	Vector2 position = actor.getPosition();
 	float rotation = actor.getRotation();
-	float scale = actor.getScale();
+	Vector2 scale = actor.getScale();
 	drawSprite(position, rotation, scale, tex, srcRect, origin, flip);
 }
 
-void Renderer::drawSprite(Vector2 position, float rotation,float scale, const Texture& tex, Rectangle srcRect, Vector2 origin, Flip flip) const
+void Renderer::drawSprite(Vector2 position, float rotation,Vector2 scale, const Texture& tex, Rectangle srcRect, Vector2 origin, Flip flip) const
 {
 	SDL_Rect dstRect;
 
@@ -87,8 +87,8 @@ void Renderer::drawSprite(Vector2 position, float rotation,float scale, const Te
 		camPos = Camera::mainCam->getPos() * camZoom;
 	}
 
-	dstRect.w = static_cast<int>(tex.getWidth() * scale * camZoom) + 1 ;
-	dstRect.h = static_cast<int>(tex.getHeight() * scale* camZoom) + 1;
+	dstRect.w = static_cast<int>(tex.getWidth() * scale.x * camZoom) + 1 ;
+	dstRect.h = static_cast<int>(tex.getHeight() * scale.y * camZoom) + 1;
 
 	dstRect.x = static_cast<int>(((position.x - origin.x) * camZoom) - camPos.x + (WINDOW_WIDTH/2));
 	dstRect.y = static_cast<int>(((position.y  - origin.y) * camZoom) - camPos.y + (WINDOW_HEIGHT / 2));

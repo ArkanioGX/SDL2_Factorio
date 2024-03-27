@@ -12,8 +12,8 @@ leftKey(SDL_SCANCODE_A),
 rightKey(SDL_SCANCODE_D),
 cam(Camera::mainCam),
 velocity(Vector2::zero),
-maxSpeed(100),
-zoomSpeed(0.1)
+maxSpeed(500),
+zoomSpeed(0.2)
 {
 }
 
@@ -24,18 +24,16 @@ void CameraControllerComponent::processInput(const InputState& inputState)
 
 	velocity = Vector2(hspd, vspd) * maxSpeed;
 
-	Log::info("Test");
 
 	if (inputState.mouse.getScrollWheel().y > 0) // scroll up
 	{
-		cam->setZoom(cam->getZoom() + zoomSpeed);
-		Log::info("Up");
+		currentZoom = Maths::clamp(currentZoom + zoomSpeed, minZoom, maxZoom);
 	}
 	else if (inputState.mouse.getScrollWheel().y < 0) // scroll down
 	{
-		cam->setZoom(cam->getZoom() - zoomSpeed);
-		Log::info("Down");
+		currentZoom = Maths::clamp(currentZoom - zoomSpeed, minZoom, maxZoom);
 	}
+	cam->setZoom(currentZoom);
 }
 
 void CameraControllerComponent::update(float dt)

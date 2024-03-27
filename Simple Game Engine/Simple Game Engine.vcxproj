@@ -143,8 +143,6 @@
     <ClCompile Include="AnimSpriteComponent.cpp" />
     <ClCompile Include="Assets.cpp" />
     <ClCompile Include="BackgroundSpriteComponent.cpp" />
-    <ClCompile Include="BowlingBallActor.cpp" />
-    <ClCompile Include="BowlingManagerActor.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraControllerComponent.cpp" />
     <ClCompile Include="Collider.cpp" />
@@ -159,8 +157,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MouseState.cpp" />
     <ClCompile Include="MoveComponent.cpp" />
-    <ClCompile Include="PhysicsBodyComponent.cpp" />
-    <ClCompile Include="PinActor.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="Renderer.cpp" />
@@ -178,8 +174,6 @@
     <ClInclude Include="AnimSpriteComponent.h" />
     <ClInclude Include="Assets.h" />
     <ClInclude Include="BackgroundSpriteComponent.h" />
-    <ClInclude Include="BowlingBallActor.h" />
-    <ClInclude Include="BowlingManagerActor.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraControllerComponent.h" />
     <ClInclude Include="Collider.h" />
@@ -194,8 +188,6 @@
     <ClInclude Include="Maths.h" />
     <ClInclude Include="MouseState.h" />
     <ClInclude Include="MoveComponent.h" />
-    <ClInclude Include="PhysicsBodyComponent.h" />
-    <ClInclude Include="PinActor.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Renderer.h" />

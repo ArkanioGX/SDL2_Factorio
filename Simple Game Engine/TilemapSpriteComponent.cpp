@@ -1,4 +1,5 @@
 #include "TilemapSpriteComponent.h"
+#include "Tileset.h"
 
 
 TilemapSpriteComponent::TilemapSpriteComponent(Actor* ownerP, Tilemap* tmap, int drawOrderP):
@@ -6,6 +7,8 @@ TilemapSpriteComponent::TilemapSpriteComponent(Actor* ownerP, Tilemap* tmap, int
 	texture(tmap->getTexture()),
 	map(tmap)
 {
+	Vector2 max = tmap->getTileset()->getTileRatio();
+	ownerP->setScale(Vector2(max.y/max.x, 1));
 }
 
 TilemapSpriteComponent::~TilemapSpriteComponent()
@@ -15,13 +18,13 @@ TilemapSpriteComponent::~TilemapSpriteComponent()
 void TilemapSpriteComponent::draw(Renderer& renderer)
 {
 	Vector2 max = map->getMaxTile();
-	
-	
 
 	int tileNumberH = max.y;
 	int tileNumberW = max.x;
+
 	for (int x = 0; x < tileNumberW; x++) {
 		for (int y= 0; y < tileNumberH; y++) {
+
 			Rectangle tileRect = map->getRectFromID(map->getTileIdAtPos(x, y));
 			renderer.drawSprite(owner.getPosition() + (map->getPosGridToLocal(x,y) * owner.getScale()) , owner.getRotation(),owner.getScale(),texture, tileRect, Vector2::zero, Renderer::Flip::None);
 		}

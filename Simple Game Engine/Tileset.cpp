@@ -1,6 +1,6 @@
 #include "Tileset.h"
 
-Tileset::Tileset(Texture& tex, int tsize = 16, float tscale = 0.5):
+Tileset::Tileset(Texture& tex, int tsize = 16):
 	tileSize(tsize),
 	texture(tex)
 {
@@ -10,12 +10,12 @@ Tileset::Tileset(Texture& tex, int tsize = 16, float tscale = 0.5):
 		for (int x = 0; x < tileNumberW; x++) {
 			int xcorner = x * tsize;
 			int ycorner = y * tsize;
-			Rectangle r = { xcorner, ycorner, xcorner + tsize, ycorner + tsize };
+			Rectangle r = { xcorner, ycorner, tsize, tsize };
 			tileList.push_back(r);
 		}
 	}
 
-	tileRatio = tileNumberW;
+	tileRatio = Vector2(tileNumberW, tileNumberH);
 }
 
 Rectangle Tileset::getRect(int id)

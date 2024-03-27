@@ -24,5 +24,9 @@ public:
 	Rectangle getRectFromID(int id) { return TilesetUsed->getRect(id); }
 
 	Texture& getTexture() { return TilesetUsed->getTileText(); }
+
+	Vector2 getGridPosFromWorld(float posx, float posy, Actor* tmapActor);
+
+	Tileset* getTileset() { return TilesetUsed; };
 };
 

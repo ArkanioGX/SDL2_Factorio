@@ -8,7 +8,7 @@
 Actor::Actor() :
 	state(Actor::ActorState::Active),
 	position(Vector2::zero),
-	scale(1.0f),
+	scale(Vector2(1.0f,1.0f)),
 	rotation(0.0f),
 	game(Game::instance())
 {
@@ -47,9 +47,15 @@ void Actor::setPosition(Vector2 positionP) {
 	position = positionP;
 }
 
-void Actor::setScale(float scaleP) {
+void Actor::setScale(Vector2 scaleP)
+{
 	scale = scaleP;
 }
+
+void Actor::setScale(float scaleP) {
+	scale = Vector2(scaleP, scaleP);
+}
+
 
 void Actor::setRotation(float rotationP) {
 	rotation = rotationP;
