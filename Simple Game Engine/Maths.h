@@ -104,4 +104,34 @@ namespace Maths
 	{
 		return static_cast<int>(std::round(num));
 	}
+
+	inline float SmoothDamp(float current, float target, float& currentVelocity, float smoothTime,float maxSpeed = infinity ,float deltaTime = 1.0f/60.0f)
+	{
+		// Based on Game Programming Gems 4 Chapter 1.10
+		smoothTime = Maths::max(0.0001F, smoothTime);
+		float omega = 2.0f / smoothTime;
+
+		float x = omega * deltaTime;
+		float exp = 1.0F / (1.0F + x + 0.48F * x * x + 0.235F * x * x * x);
+		float change = current - target;
+		float originalTo = target;
+
+		// Clamp maximum speed
+		float maxChange = maxSpeed * smoothTime;
+		change = Maths::clamp(change, -maxChange, maxChange);
+		target = current - change;
+
+		float temp = (currentVelocity + omega * change) * deltaTime;
+		currentVelocity = (currentVelocity - omega * temp) * exp;
+		float output = target + (change + temp) * exp;
+
+		// Prevent overshooting
+		if (originalTo - current > 0.0F == output > originalTo)
+		{
+			output = originalTo;
+			currentVelocity = (output - originalTo) / deltaTime;
+		}
+
+		return output;
+	}
 }

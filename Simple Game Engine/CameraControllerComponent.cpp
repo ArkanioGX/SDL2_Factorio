@@ -33,7 +33,7 @@ void CameraControllerComponent::processInput(const InputState& inputState)
 	{
 		currentZoom = Maths::clamp(currentZoom - zoomSpeed, minZoom, maxZoom);
 	}
-	cam->setZoom(currentZoom);
+	
 
 }
 
@@ -45,6 +45,7 @@ void CameraControllerComponent::update(float dt)
 		camPos.y = Maths::clamp(camPos.y, minClamp.y, maxClamp.y);
 	}
 	owner.setPosition(camPos);
+	cam->setZoom(Maths::SmoothDamp(cam->getZoom(),currentZoom,zoomV,0.2f,Maths::infinity,dt));
 }
 
 void CameraControllerComponent::setLimit(Vector2 min, Vector2 max)

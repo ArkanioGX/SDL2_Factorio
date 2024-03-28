@@ -19,10 +19,12 @@ public:
 
 private:
 
+
 	Vector2 velocity;
 	float maxSpeed;
 	float maxSpeedZoomMultiplier = 1.2;
 	float zoomSpeed;
+	float zoomV = 0;
 
 	int upKey;
 	int downKey;
