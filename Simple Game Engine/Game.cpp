@@ -139,7 +139,7 @@ void Game::load() {
 	
 	Actor* tmActor= new Actor();
 	Tileset* tset = new Tileset(Assets::getTexture("TestTileset"), 16);
-	Tilemap* tmap = new Tilemap(tset);
+	Tilemap* tmap = new Tilemap(tmActor, tset);
 	TilemapSpriteComponent* tmsc = new TilemapSpriteComponent(tmActor, tmap);
 
 	

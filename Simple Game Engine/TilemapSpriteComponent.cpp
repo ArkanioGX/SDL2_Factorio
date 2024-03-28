@@ -22,11 +22,13 @@ void TilemapSpriteComponent::draw(Renderer& renderer)
 	int tileNumberH = max.y;
 	int tileNumberW = max.x;
 
+	Vector2 origin = Vector2(map->getTexture().getWidth() / 2, map->getTexture().getHeight() / 2);
+
 	for (int x = 0; x < tileNumberW; x++) {
 		for (int y= 0; y < tileNumberH; y++) {
 
 			Rectangle tileRect = map->getRectFromID(map->getTileIdAtPos(x, y));
-			renderer.drawSprite(owner.getPosition() + (map->getPosGridToLocal(x,y) * owner.getScale()) , owner.getRotation(),owner.getScale(),texture, tileRect, Vector2::zero, Renderer::Flip::None);
+			renderer.drawSprite(owner.getPosition() + (map->getPosGridToLocal(x,y) * owner.getScale()) , owner.getRotation(), owner.getScale(), texture, tileRect, origin, Renderer::Flip::None);
 		}
 	}
 }

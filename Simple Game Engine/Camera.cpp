@@ -25,6 +25,6 @@ Vector2 Camera::getScreenPosInWorld(Vector2 pos)
 	pos -= Vector2(WINDOW_WIDTH,WINDOW_HEIGHT) / 2;
 	pos = pos / zoom;
 	Vector2 worldPos = (pos + owner.getPosition() );
-	Log::info("X : " + std::to_string(worldPos.x) + " | Y : " + std::to_string(worldPos.y));
+	//Log::info("X : " + std::to_string(worldPos.x) + " | Y : " + std::to_string(worldPos.y));
 	return worldPos;
 }

@@ -19,6 +19,7 @@ private:
 
 	Vector2 velocity;
 	float maxSpeed;
+	float maxSpeedZoomMultiplier = 1.2;
 	float zoomSpeed;
 
 	int upKey;
@@ -29,7 +30,7 @@ private:
 	Camera* cam;
 
 	float currentZoom = 1;
-	float minZoom = 0.5;
-	float maxZoom = 5;
+	float minZoom = 0.1;
+	float maxZoom = 2;
 };
 

@@ -13,6 +13,7 @@ private:
 	vector<vector<int>> TilemapContent;
 
 	Vector2 maxTile;
+
 public:
 	Tilemap(Actor* ownerP, Tileset* tset);
 
@@ -26,6 +27,7 @@ public:
 
 	Texture& getTexture() { return TilesetUsed->getTileText(); }
 
+	void processInput(const struct InputState& inputState) override;
 
 	Tileset* getTileset() { return TilesetUsed; };
 

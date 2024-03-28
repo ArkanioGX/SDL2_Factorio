@@ -9,6 +9,8 @@ struct Vector2
 	static const Vector2 zero;
 	static const Vector2 unitX;
 	static const Vector2 unitY;
+	static const Vector2 one;
+	static const Vector2 null;
 
 	void set(float xP, float yP);
 	float lengthSq() const;

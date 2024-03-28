@@ -26,7 +26,7 @@ private:
 	Vector2 tileRatio;
 
 	int maxTile;
-
+	 
 	vector<Rectangle> tileList;
 	
 };

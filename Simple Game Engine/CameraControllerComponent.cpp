@@ -22,7 +22,7 @@ void CameraControllerComponent::processInput(const InputState& inputState)
 	int vspd = (inputState.keyboard.getKeyValue(SDL_SCANCODE_S)) - (inputState.keyboard.getKeyValue(SDL_SCANCODE_W));
 	int hspd = (inputState.keyboard.getKeyValue(SDL_SCANCODE_D)) - (inputState.keyboard.getKeyValue(SDL_SCANCODE_A));
 
-	velocity = Vector2(hspd, vspd) * maxSpeed;
+	velocity = Vector2(hspd, vspd) * (maxSpeed*(maxSpeedZoomMultiplier/currentZoom));
 
 
 	if (inputState.mouse.getScrollWheel().y > 0) // scroll up

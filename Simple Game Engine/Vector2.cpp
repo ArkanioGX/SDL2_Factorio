@@ -4,6 +4,8 @@
 const Vector2 Vector2::zero(0, 0);
 const Vector2 Vector2::unitX(1.0f, 0.0f);
 const Vector2 Vector2::unitY(0.0f, 1.0f);
+const Vector2 Vector2::one(1.0f, 1.0f);
+const Vector2 Vector2::null(NULL, NULL);
 
 void Vector2::set(float xP, float yP)
 {

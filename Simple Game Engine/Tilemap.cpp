@@ -1,6 +1,10 @@
 #include "Tilemap.h"
 #include "Camera.h"
 #include "Actor.h"
+#include <SDL_scancode.h>
+#include "Log.h"
+#include "Game.h"
+#include <SDL.h>
 
 Tilemap::Tilemap(Actor* ownerP, Tileset* tset):
     Component(ownerP),
@@ -25,6 +29,11 @@ Vector2 Tilemap::getPosGridToLocal(float posx,float posy)
     return Vector2(x,y);
 }
 
+void Tilemap::processInput(const InputState& inputState)
+{
+    getGridPosFromScreen(inputState.mouse.getPosition().x, inputState.mouse.getPosition().y);
+}
+
 Vector2 Tilemap::getGridPosFromScreen(float posx, float posy)
 {
     Vector2 posInWorld = Camera::mainCam->getScreenPosInWorld(Vector2(posx,posy));
@@ -33,17 +42,18 @@ Vector2 Tilemap::getGridPosFromScreen(float posx, float posy)
 
 Vector2 Tilemap::getGridPosFromWorld(float posx, float posy)
 {
-
-    if(posx > owner.getPosition().x &&
-       posx < owner.getPosition().x + (maxTile.x * TilesetUsed->getTileRatio().x * TilesetUsed->getTileSize() * owner.getScale().x))
-    {
-        Log::info("IN !!");
-    }
     Vector2 tmPos = owner.getPosition();
     Vector2 tmScale = owner.getScale();
-
-    
-
-    return Vector2();
+    if(posx > tmPos.x &&
+       posx < tmPos.x + (maxTile.x * TilesetUsed->getTileRatio().x * TilesetUsed->getTileSize() * tmScale.x) &&
+        posy > tmPos.y &&
+        posy < tmPos.y + (maxTile.y * TilesetUsed->getTileRatio().y * TilesetUsed->getTileSize() * tmScale.y))
+    {
+        int x = (posx - tmPos.x) / (TilesetUsed->getTileRatio().x * TilesetUsed->getTileSize() * tmScale.x);
+        int y = (posy - tmPos.y) / (TilesetUsed->getTileRatio().y * TilesetUsed->getTileSize() * tmScale.y);
+        //Log::info(" x : " + std::to_string(x) + " | y : " + std::to_string(y));
+        return Vector2(x, y);
+    }
+    return Vector2::null;
 }
 
