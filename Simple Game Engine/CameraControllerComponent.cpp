@@ -39,5 +39,22 @@ void CameraControllerComponent::processInput(const InputState& inputState)
 
 void CameraControllerComponent::update(float dt)
 {
-	owner.setPosition(owner.getPosition() + (velocity * dt));
+	Vector2 camPos = owner.getPosition() + (velocity * dt);
+	if (isClamped) {
+		camPos.x = Maths::clamp(camPos.x, minClamp.x, maxClamp.x);
+		camPos.y = Maths::clamp(camPos.y, minClamp.y, maxClamp.y);
+	}
+	owner.setPosition(camPos);
+}
+
+void CameraControllerComponent::setLimit(Vector2 min, Vector2 max)
+{
+	if (min == Vector2::null && max == Vector2::null) {
+		isClamped = false;
+	}
+	else {
+		isClamped = true;
+		minClamp = min;
+		maxClamp = max;
+	}
 }

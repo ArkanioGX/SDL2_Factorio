@@ -138,10 +138,17 @@ void Game::load() {
 	//test Tilemap
 	
 	Actor* tmActor= new Actor();
-	Tileset* tset = new Tileset(Assets::getTexture("TestTileset"), 16);
+	Tileset* tset = new Tileset(Assets::getTexture("TerrainTileset"), 16);
 	Tilemap* tmap = new Tilemap(tmActor, tset);
 	TilemapSpriteComponent* tmsc = new TilemapSpriteComponent(tmActor, tmap);
 
+	{
+		Vector2 min = Vector2::zero;
+		Vector2 max = Vector2::zero;
+
+		tmap->getLimit(min, max);
+		CCC->setLimit(min, max);
+	}
 	
 }
 

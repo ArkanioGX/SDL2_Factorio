@@ -15,6 +15,8 @@ public:
 
 	void update(float dt);
 
+	void setLimit(Vector2 min, Vector2 max);
+
 private:
 
 	Vector2 velocity;
@@ -32,5 +34,9 @@ private:
 	float currentZoom = 1;
 	float minZoom = 0.1;
 	float maxZoom = 2;
+
+	bool isClamped = false;
+	Vector2 minClamp = Vector2::null;
+	Vector2 maxClamp = Vector2::null;
 };
 
