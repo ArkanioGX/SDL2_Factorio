@@ -10,6 +10,7 @@
 #include <algorithm>
 #include "Camera.h"
 #include "CameraControllerComponent.h"
+#include "TilePlacerComponent.h"
 
 bool Game::initialize() {
 	bool isWindowInit = window.initialize();
@@ -149,6 +150,8 @@ void Game::load() {
 		tmap->getLimit(min, max);
 		CCC->setLimit(min, max);
 	}
+
+	TilePlacerComponent* tpc = new TilePlacerComponent(tmActor,tmap);
 	
 }
 

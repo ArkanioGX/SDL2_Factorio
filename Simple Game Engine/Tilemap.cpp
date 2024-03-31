@@ -95,6 +95,11 @@ Tile Tilemap::getTileIdAtPos(float posx, float posy)
     return TilemapContent[posy][posx];
 }
 
+void Tilemap::setTileAtPos(float posx, float posy, Tile t)
+{
+    TilemapContent[posx][posy] = t;
+}
+
 Vector2 Tilemap::getPosGridToLocal(float posx,float posy)
 {
     float x = posx * TilesetUsed->getTileSize() * TilesetUsed->getTileRatio().x;
@@ -102,10 +107,7 @@ Vector2 Tilemap::getPosGridToLocal(float posx,float posy)
     return Vector2(x,y);
 }
 
-void Tilemap::processInput(const InputState& inputState)
-{
-    getGridPosFromScreen(inputState.mouse.getPosition().x, inputState.mouse.getPosition().y);
-}
+
 
 Vector2 Tilemap::getGridPosFromScreen(float posx, float posy)
 {

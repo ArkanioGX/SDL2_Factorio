@@ -39,6 +39,11 @@ struct Vector2
 		return (left.x == right.x && left.y == right.y);
 	}
 
+	friend bool operator!=(const Vector2& left, const Vector2& right)
+	{
+		return (left.x != right.x || left.y != right.y);
+	}
+
 	Vector2& operator+=(const Vector2& right)
 	{
 		x += right.x;

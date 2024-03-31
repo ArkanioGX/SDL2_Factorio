@@ -23,6 +23,8 @@ public:
 
 	Tile getTileIdAtPos(float posx, float posy);
 
+	void setTileAtPos(float posx, float posy, Tile t);
+
 	Vector2 getPosGridToLocal(float posx,float posy);
 
 	Vector2 getMaxTile() { return maxTile; }
@@ -31,7 +33,7 @@ public:
 
 	Texture& getTexture() { return TilesetUsed->getTileText(); }
 
-	void processInput(const struct InputState& inputState) override;
+	
 
 	Tileset* getTileset() { return TilesetUsed; };
 

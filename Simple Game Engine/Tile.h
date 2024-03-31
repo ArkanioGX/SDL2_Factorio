@@ -1,10 +1,14 @@
 #pragma once
+
+
+
 struct Tile
 {
+public:
 	enum PlaceableOn { Everything, Nothing, OnlyTransport };
 
 	Tile() : tileID(-1),rotation(0),placeType(PlaceableOn::Nothing){};
-	Tile(float tID,  float rot, PlaceableOn pOn) : tileID(tID), rotation(rot), placeType(PlaceableOn::Nothing) {}
+	Tile(float tID,  float rot, PlaceableOn pOn) : tileID(tID), rotation(rot), placeType(pOn) {}
 
 	//Tileset* tset;
 	float rotation;
