@@ -97,7 +97,7 @@ Tile Tilemap::getTileIdAtPos(float posx, float posy)
 
 void Tilemap::setTileAtPos(float posx, float posy, Tile t)
 {
-    TilemapContent[posx][posy] = t;
+    TilemapContent[posy][posx] = t;
 }
 
 Vector2 Tilemap::getPosGridToLocal(float posx,float posy)
