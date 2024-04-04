@@ -129,6 +129,8 @@ void Game::removeActor(Actor* actor) {
 void Game::load() {
 	Assets::loadTexture(renderer,"Res/Ship.png","Ship");
 	Assets::loadTexture(renderer, "Res/TerrainSimplifiedTileset.png", "TerrainTileset");
+	//Assets::loadTexture(renderer, "Res/TS_Dungeon1.png", "TerrainTileset");
+	
 	Assets::loadTexture(renderer, "Res/TestTileset.png", "TestTileset");
 
 	
@@ -151,7 +153,7 @@ void Game::load() {
 		CCC->setLimit(min, max);
 	}
 
-	TilePlacerComponent* tpc = new TilePlacerComponent(tmActor,tmap);
+	TilePlacerComponent* tpc = new TilePlacerComponent(tmActor,tmap,std::vector<Tile>{Tile::Ground, Tile::Water});
 	
 }
 

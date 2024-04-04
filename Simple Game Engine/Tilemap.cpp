@@ -5,6 +5,7 @@
 #include "Log.h"
 #include "Game.h"
 #include <SDL.h>
+#include "OreTile.h"
 
 Tilemap::Tilemap(Actor* ownerP, Tileset* tset):
     Component(ownerP),
@@ -78,7 +79,7 @@ void Tilemap::setTileMapFromIdMap(std::vector<std::vector<int>> &idMap)
                 TileToPlace = Tile::Wall;
                 break;
             case 2:
-                TileToPlace = Tile::Ore;
+                TileToPlace = OreTile::Ore;
                 break;
             case 3:
                 TileToPlace = Tile::Water;

@@ -11,7 +11,7 @@ bool Window::initialize()
 		Log::error(LogCategory::Video, "Unable to initialize SDL");
 		return false;
 	}
-	RenderWindow = SDL_CreateWindow("Tile Dungeon", 100, 100, width, height, 0); //0 is flag we will use later
+	RenderWindow = SDL_CreateWindow("Basic Factory Game", 100, 100, width, height, 0); //0 is flag we will use later
 	if (!RenderWindow)
 	{
 	Log::error(LogCategory::System, "Failed to create window");
