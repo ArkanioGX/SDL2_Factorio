@@ -153,7 +153,7 @@ void Game::load() {
 		CCC->setLimit(min, max);
 	}
 
-	TilePlacerComponent* tpc = new TilePlacerComponent(tmActor,tmap,std::vector<Tile>{Tile::Ground, Tile::Water});
+	TilePlacerComponent* tpc = new TilePlacerComponent(tmActor,tmap,std::vector<Tile>{Tile::DGround, Tile::DWater});
 	
 }
 
