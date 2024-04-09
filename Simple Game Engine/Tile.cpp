@@ -4,7 +4,7 @@
 
 unsigned int Tile::seed = 0;
 
-const Tile Tile::Null({-1}, 0, false,false, Type::Basic, Tile::PlaceableOn::Nothing);
+const Tile Tile::Null({-1}, 0, false,false, Type::Basic, Tile::PlaceableOn::Everything);
 
 const Tile Tile::DGround({1,2,3},0.0f, false,true,Type::Basic, Tile::PlaceableOn::Everything);
 const Tile Tile::DWall({4,5,6,7}, 0.0f, false,false, Type::Basic, Tile::PlaceableOn::Nothing);

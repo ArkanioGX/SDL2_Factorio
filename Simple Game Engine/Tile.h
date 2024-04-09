@@ -14,7 +14,7 @@ public:
 
 	static unsigned int seed;
 
-	Tile() : tileID(-1), randomTileID(false), rotation(0), canRotate(true), type(Type::Basic), placeType(PlaceableOn::Nothing) {};
+	Tile() : tileID(0), randomTileID(false), rotation(0), canRotate(true), type(Type::Basic), placeType(PlaceableOn::Nothing) {};
 	Tile(int tID, float rot, bool cRot,bool rRot, Type t, PlaceableOn pOn) : tileID(tID),  randomTileID(false), rotation(rot), canRotate(cRot),randomRotate(rRot), type(t), placeType(pOn) {}
 	Tile(std::vector<int> tID,  float rot, bool cRot, bool rRot,Type t, PlaceableOn pOn) : tileIDlist(tID),tileID(tID[0]), randomTileID(true), rotation(rot), canRotate(cRot), randomRotate(rRot), type(t), placeType(pOn) {
 	}
@@ -38,4 +38,8 @@ public:
 	static const Tile DDeepWater;
 
 	void setRandomTID();
+
+	bool isANullTile() {
+		return tileID == -1;
+	}
 };

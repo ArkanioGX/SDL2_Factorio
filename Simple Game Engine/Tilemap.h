@@ -19,7 +19,7 @@ private:
 
 
 public:
-	Tilemap(Actor* ownerP, Tileset* tset);
+	Tilemap(Actor* ownerP, Tileset* tset, bool isEmpty);
 
 	Tile getTileIdAtPos(float posx, float posy);
 

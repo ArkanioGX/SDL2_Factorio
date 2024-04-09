@@ -140,10 +140,12 @@ void Game::load() {
 
 	//test Tilemap
 	
-	Actor* tmActor= new Actor();
+	Actor* worldTM= new Actor();
 	Tileset* tset = new Tileset(Assets::getTexture("TerrainTileset"), 16);
-	Tilemap* tmap = new Tilemap(tmActor, tset);
-	TilemapSpriteComponent* tmsc = new TilemapSpriteComponent(tmActor, tmap);
+	Tilemap* tmap = new Tilemap(worldTM, tset,false);
+	TilemapSpriteComponent* tmsc = new TilemapSpriteComponent(worldTM, tmap);
+
+	
 
 	{
 		Vector2 min = Vector2::zero;
@@ -153,8 +155,10 @@ void Game::load() {
 		CCC->setLimit(min, max);
 	}
 
-	TilePlacerComponent* tpc = new TilePlacerComponent(tmActor,tmap,std::vector<Tile>{Tile::DGround, Tile::DWater});
-	
+	Actor* machineTM = new Actor();
+	Tilemap* tmap2 = new Tilemap(machineTM, tset,true);
+	TilemapSpriteComponent* tmsc2 = new TilemapSpriteComponent(machineTM, tmap2);
+	TilePlacerComponent* tpc2 = new TilePlacerComponent(machineTM, tmap2, std::vector<Tile>{Tile::DGround, Tile::DWater});
 }
 
 void Game::unload() {

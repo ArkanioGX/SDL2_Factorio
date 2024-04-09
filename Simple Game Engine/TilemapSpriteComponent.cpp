@@ -26,10 +26,11 @@ void TilemapSpriteComponent::draw(Renderer& renderer)
 
 	for (int x = 0; x < tileNumberW; x++) {
 		for (int y= 0; y < tileNumberH; y++) {
-
-			Rectangle tileRect = map->getRectFromID(map->getTileIdAtPos(x, y).tileID);
-			float rot = map->getTileIdAtPos(x, y).rotation;
-			renderer.drawSprite(owner.getPosition() + (map->getPosGridToLocal(x,y) * owner.getScale()) , rot, owner.getScale(), texture, tileRect, origin, Renderer::Flip::None);
+			if (!map->getTileIdAtPos(x, y).isANullTile()) {
+				Rectangle tileRect = map->getRectFromID(map->getTileIdAtPos(x, y).tileID);
+				float rot = map->getTileIdAtPos(x, y).rotation;
+				renderer.drawSprite(owner.getPosition() + (map->getPosGridToLocal(x, y) * owner.getScale()), rot, owner.getScale(), texture, tileRect, origin, Renderer::Flip::None);
+			}
 		}
 	}
 }
