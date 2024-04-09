@@ -24,6 +24,7 @@ void TilePlacerComponent::processInput(const InputState& inputState)
 			if (t.canRotate) {
 				t.rotation = currentRotation;
 			}
+			t.setRandomTID();
 			map->setTileAtPos(gPos.x, gPos.y, t);
 		}
 	}
