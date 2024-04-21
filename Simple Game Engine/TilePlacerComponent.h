@@ -13,11 +13,13 @@ public:
 
 	void setNewTileToPlace(const InputState& inputState);
 
+	void placeTile(Vector2 pos);
+
 private:
 
 	std::vector<Tile> tileList;
 
-	float currentRotation = 0;
+	int currentRotation = 0;
 
 	class Tilemap* map;
 	

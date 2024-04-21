@@ -14,6 +14,8 @@ public:
 	void draw(Renderer& renderer) override;
 private:
 	Tilemap* map;
-	Texture texture;
+
+	
 };
 
+const float TILEMAP_SIZE = 4.0f;

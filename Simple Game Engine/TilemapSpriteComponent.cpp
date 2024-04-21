@@ -4,11 +4,10 @@
 
 TilemapSpriteComponent::TilemapSpriteComponent(Actor* ownerP, Tilemap* tmap, int drawOrderP):
 	SpriteComponent(ownerP, tmap->getTexture(), drawOrderP),
-	texture(tmap->getTexture()),
 	map(tmap)
 {
 	Vector2 max = tmap->getTileset()->getTileRatio();
-	ownerP->setScale(Vector2(max.y/max.x, 1));
+	ownerP->setScale(Vector2(TILEMAP_SIZE/max.x, TILEMAP_SIZE/max.y));
 }
 
 TilemapSpriteComponent::~TilemapSpriteComponent()
@@ -22,14 +21,15 @@ void TilemapSpriteComponent::draw(Renderer& renderer)
 	int tileNumberH = max.y;
 	int tileNumberW = max.x;
 
-	Vector2 origin = Vector2(map->getTexture().getWidth() / 2, map->getTexture().getHeight() / 2);
-
 	for (int x = 0; x < tileNumberW; x++) {
 		for (int y= 0; y < tileNumberH; y++) {
-			if (!map->getTileIdAtPos(x, y).isANullTile()) {
-				Rectangle tileRect = map->getRectFromID(map->getTileIdAtPos(x, y).tileID);
-				float rot = map->getTileIdAtPos(x, y).rotation;
-				renderer.drawSprite(owner.getPosition() + (map->getPosGridToLocal(x, y) * owner.getScale()), rot, owner.getScale(), texture, tileRect, origin, Renderer::Flip::None);
+			Tile* currentTile = map->getTileIdAtPos(x, y);
+			if (!currentTile->isANullTile()) {
+				Vector2 tilePos = owner.getPosition() + (map->getPosGridToLocal(x, y) * owner.getScale());
+				Rectangle tileRect = map->getRectFromID(currentTile->tileID);
+				float rot = currentTile->rotation;
+				renderer.drawSprite(tilePos, rot, owner.getScale(), texture, tileRect, Vector2::zero, Renderer::Flip::None);
+				
 			}
 		}
 	}

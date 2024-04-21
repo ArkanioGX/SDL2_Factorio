@@ -21,7 +21,7 @@ private:
 public:
 	Tilemap(Actor* ownerP, Tileset* tset, bool isEmpty);
 
-	Tile getTileIdAtPos(float posx, float posy);
+	Tile* getTileIdAtPos(float posx, float posy);
 
 	void setTileAtPos(float posx, float posy, Tile t);
 

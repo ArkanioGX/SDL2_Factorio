@@ -6,6 +6,8 @@
 #include <Time.h>
 #include "Maths.h"
 
+class TilemapSpriteComponent;
+
 class Tile
 {
 public:

@@ -1,6 +1,8 @@
 #include "Tile.h"
 #include "OreTile.h"
 #include "Random.h"
+#include "Tilemap.h"
+#include "Renderer.h"
 
 unsigned int Tile::seed = 0;
 
@@ -22,3 +24,5 @@ void Tile::setRandomTID()
 	}
 	seed++;
 }
+
+

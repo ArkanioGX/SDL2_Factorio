@@ -157,6 +157,7 @@
     <ClCompile Include="KeyboardState.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="MachineTile.cpp" />
+    <ClCompile Include="MachineTileComponent.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MouseState.cpp" />
     <ClCompile Include="MoveComponent.cpp" />
@@ -194,6 +195,7 @@
     <ClInclude Include="KeyboardState.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="MachineTile.h" />
+    <ClInclude Include="MachineTileComponent.h" />
     <ClInclude Include="Maths.h" />
     <ClInclude Include="MouseState.h" />
     <ClInclude Include="MoveComponent.h" />

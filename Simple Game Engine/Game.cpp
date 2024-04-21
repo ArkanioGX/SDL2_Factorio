@@ -11,6 +11,7 @@
 #include "Camera.h"
 #include "CameraControllerComponent.h"
 #include "TilePlacerComponent.h"
+#include "ConveyorTile.h"
 
 bool Game::initialize() {
 	bool isWindowInit = window.initialize();
@@ -129,6 +130,7 @@ void Game::removeActor(Actor* actor) {
 void Game::load() {
 	Assets::loadTexture(renderer,"Res/Ship.png","Ship");
 	Assets::loadTexture(renderer, "Res/TerrainSimplifiedTileset.png", "TerrainTileset");
+	Assets::loadTexture(renderer, "Res/MachineTileset.png", "MachineTileset");
 	//Assets::loadTexture(renderer, "Res/TS_Dungeon1.png", "TerrainTileset");
 	
 	Assets::loadTexture(renderer, "Res/TestTileset.png", "TestTileset");
@@ -138,11 +140,15 @@ void Game::load() {
 	Camera* camera = new Camera(camActor,Vector2(0,0),2);
 	CameraControllerComponent* CCC = new CameraControllerComponent(camActor);
 
+	//Load Tileset
+	Tileset* worldTset = new Tileset(Assets::getTexture("TerrainTileset"), 16);
+	Tileset* machineTset = new Tileset(Assets::getTexture("MachineTileset"), 16);
+
 	//test Tilemap
 	
 	Actor* worldTM= new Actor();
-	Tileset* tset = new Tileset(Assets::getTexture("TerrainTileset"), 16);
-	Tilemap* tmap = new Tilemap(worldTM, tset,false);
+	
+	Tilemap* tmap = new Tilemap(worldTM, worldTset,false);
 	TilemapSpriteComponent* tmsc = new TilemapSpriteComponent(worldTM, tmap);
 
 	
@@ -156,9 +162,9 @@ void Game::load() {
 	}
 
 	Actor* machineTM = new Actor();
-	Tilemap* tmap2 = new Tilemap(machineTM, tset,true);
+	Tilemap* tmap2 = new Tilemap(machineTM, machineTset,true);
 	TilemapSpriteComponent* tmsc2 = new TilemapSpriteComponent(machineTM, tmap2);
-	TilePlacerComponent* tpc2 = new TilePlacerComponent(machineTM, tmap2, std::vector<Tile>{Tile::DGround, Tile::DWater});
+	TilePlacerComponent* tpc2 = new TilePlacerComponent(machineTM, tmap2, std::vector<Tile>{ConveyorTile::base});
 }
 
 void Game::unload() {

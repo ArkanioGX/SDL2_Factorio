@@ -105,9 +105,9 @@ void Tilemap::setTileMapFromIdMap(std::vector<std::vector<int>> &idMap)
     }
 }
 
-Tile Tilemap::getTileIdAtPos(float posx, float posy)
+Tile* Tilemap::getTileIdAtPos(float posx, float posy)
 {
-    return TilemapContent[posy][posx];
+    return &TilemapContent[posy][posx];
 }
 
 void Tilemap::setTileAtPos(float posx, float posy, Tile t)
@@ -143,7 +143,7 @@ Vector2 Tilemap::getGridPosFromWorld(float posx, float posy)
     {
         int x = (posx - tmPos.x) / (TilesetUsed->getTileRatio().x * TilesetUsed->getTileSize() * tmScale.x);
         int y = (posy - tmPos.y) / (TilesetUsed->getTileRatio().y * TilesetUsed->getTileSize() * tmScale.y);
-        Log::info(" x : " + std::to_string(x) + " | y : " + std::to_string(y));
+        //Log::info(" x : " + std::to_string(x) + " | y : " + std::to_string(y));
         return Vector2(x, y);
     }
     return Vector2::null;
