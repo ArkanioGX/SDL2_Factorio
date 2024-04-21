@@ -59,6 +59,13 @@ void TilePlacerComponent::placeTile(Vector2 pos)
 		if (mtc != nullptr) {
 			mtc->addMTile(static_cast<MachineTile*>(t));
 		}
+		Tile* tileAtPlace = map->getTileAtPos(pos.x, pos.y);
+		if (tileAtPlace != nullptr) {
+			if (tileAtPlace->type == Tile::Type::Machine) {
+				mtc->removeMTile(static_cast<MachineTile*>(t));
+			}
+		}
+
 	}
 	map->setTileAtPos(pos.x, pos.y, t);
 }

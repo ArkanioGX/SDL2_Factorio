@@ -15,7 +15,9 @@ void MachineTileComponent::removeMTile(MachineTile* mt)
 	std::vector<MachineTile*>::iterator mit = std::find(machineTileList.begin(), machineTileList.end(), mt);
 	if (mit != machineTileList.end()) {
 		machineTileList.erase(mit);
+		//delete mt; TODO : To Implement
 	}
+	
 }
 
 void MachineTileComponent::tileUpdate(MachineTile* mt)
