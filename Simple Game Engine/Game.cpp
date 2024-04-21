@@ -12,6 +12,7 @@
 #include "CameraControllerComponent.h"
 #include "TilePlacerComponent.h"
 #include "ConveyorTile.h"
+#include "MachineTileComponent.h"
 
 bool Game::initialize() {
 	bool isWindowInit = window.initialize();
@@ -164,7 +165,8 @@ void Game::load() {
 	Actor* machineTM = new Actor();
 	Tilemap* tmap2 = new Tilemap(machineTM, machineTset,true);
 	TilemapSpriteComponent* tmsc2 = new TilemapSpriteComponent(machineTM, tmap2);
-	TilePlacerComponent* tpc2 = new TilePlacerComponent(machineTM, tmap2, std::vector<Tile>{ConveyorTile::base});
+	TilePlacerComponent* tpc2 = new TilePlacerComponent(machineTM, tmap2, std::vector<Tile*>{new ConveyorTile(ConveyorTile::base)});
+	MachineTileComponent* mtc = new MachineTileComponent(machineTM);
 }
 
 void Game::unload() {

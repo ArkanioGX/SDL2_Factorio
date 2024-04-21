@@ -23,8 +23,8 @@ void TilemapSpriteComponent::draw(Renderer& renderer)
 
 	for (int x = 0; x < tileNumberW; x++) {
 		for (int y= 0; y < tileNumberH; y++) {
-			Tile* currentTile = map->getTileIdAtPos(x, y);
-			if (!currentTile->isANullTile()) {
+			Tile* currentTile = map->getTileAtPos(x, y);
+			if (currentTile != nullptr) {
 				Vector2 tilePos = owner.getPosition() + (map->getPosGridToLocal(x, y) * owner.getScale());
 				Rectangle tileRect = map->getRectFromID(currentTile->tileID);
 				float rot = currentTile->rotation;

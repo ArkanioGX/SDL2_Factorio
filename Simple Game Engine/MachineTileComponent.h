@@ -3,6 +3,7 @@
 #include "MachineTile.h"
 #include <vector>
 
+
 class MachineTileComponent : public Component
 {
 private:
@@ -11,6 +12,9 @@ private:
 	std::vector<MachineTile*> tileToUpdate;
 
 public:
+
+	MachineTileComponent(class Actor* ownerP);
+
 	void addMTile(MachineTile* mt);
 	void removeMTile(MachineTile* mt);
 

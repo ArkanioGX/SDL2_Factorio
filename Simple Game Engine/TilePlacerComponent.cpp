@@ -6,8 +6,11 @@
 #include "Game.h"
 #include <SDL.h>
 #include "Maths.h"
+#include "MachineTileComponent.h"
+#include "Tile.h"
+#include "MachineTile.h"
 
-TilePlacerComponent::TilePlacerComponent(Actor* ownerP, Tilemap* tmap, std::vector<Tile> tList):
+TilePlacerComponent::TilePlacerComponent(Actor* ownerP, Tilemap* tmap, std::vector<Tile*> tList):
 	Component(ownerP),
 	map(tmap),
 	tileToPlace(tList[0]),
@@ -19,7 +22,7 @@ void TilePlacerComponent::processInput(const InputState& inputState)
 {
 	Vector2 gPos = map->getGridPosFromScreen(inputState.mouse.getPosition().x, inputState.mouse.getPosition().y);
 	if (gPos != Vector2::null && inputState.mouse.getButtonState(1) == ButtonState::Held){
-		if (map->getTileIdAtPos(gPos.x, gPos.y)->placeType == Tile::PlaceableOn::Everything) {
+		if (canPlace(gPos)) {
 			placeTile(gPos);
 		}
 	}
@@ -39,7 +42,7 @@ void TilePlacerComponent::setNewTileToPlace(const InputState& inputState)
 		if (inputState.keyboard.getKeyState(input.first) == ButtonState::Pressed) {
 			int id = input.second;
 			if (id < tileList.size()) {
-				tileToPlace = tileList[id];
+				tileToPlace = tileList[id]; 
 			}
 		}
 	}
@@ -47,11 +50,21 @@ void TilePlacerComponent::setNewTileToPlace(const InputState& inputState)
 
 void TilePlacerComponent::placeTile(Vector2 pos)
 {
-	Tile t = tileToPlace;
-	if (t.canRotate) {
-		t.rotation = currentRotation * Maths::piOver2;
+	Tile* t = tileToPlace;
+	if (t->canRotate) {
+		t->rotation = currentRotation * Maths::piOver2;
 	}
-	if (t.type == Tile::Type::Machine) {
+	if (t->type == Tile::Type::Machine) {
+		MachineTileComponent* mtc = owner.getComponent<MachineTileComponent*>();
+		if (mtc != nullptr) {
+			mtc->addMTile(static_cast<MachineTile*>(t));
+		}
 	}
 	map->setTileAtPos(pos.x, pos.y, t);
+}
+
+bool TilePlacerComponent::canPlace(Vector2 pos)
+{
+	Tile* t = map->getTileAtPos(pos.x, pos.y);
+	return t == nullptr || t->placeType == Tile::PlaceableOn::Everything ;
 }

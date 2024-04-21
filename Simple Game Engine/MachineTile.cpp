@@ -11,7 +11,7 @@ void MachineTile::update(float dt, MachineTileComponent* msc)
 	msc->tileUpdate(this);
 }
 
-void MachineTile::draw()
+void MachineTile::additiveDraw()
 {
 }
 

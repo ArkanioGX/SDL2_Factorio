@@ -11,7 +11,7 @@ class Tilemap : public Component
 private:
 	Tileset* TilesetUsed;
 
-	vector<vector<Tile>> TilemapContent;
+	vector<vector<Tile*>> TilemapContent;
 
 	Vector2 maxTile;
 
@@ -21,9 +21,9 @@ private:
 public:
 	Tilemap(Actor* ownerP, Tileset* tset, bool isEmpty);
 
-	Tile* getTileIdAtPos(float posx, float posy);
+	Tile* getTileAtPos(float posx, float posy);
 
-	void setTileAtPos(float posx, float posy, Tile t);
+	void setTileAtPos(float posx, float posy, Tile* t);
 
 	Vector2 getPosGridToLocal(float posx,float posy);
 

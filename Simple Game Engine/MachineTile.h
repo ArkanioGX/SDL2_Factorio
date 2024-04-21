@@ -12,7 +12,7 @@ public:
 
 	std::vector<MachineTile*> inputTile, outputTile;
 	virtual void update(float dt, class MachineTileComponent* msc = nullptr);
-	virtual void draw();
+	virtual void additiveDraw();
 
 	void addInput(MachineTile* mt);
 	void removeInput(MachineTile* mt);

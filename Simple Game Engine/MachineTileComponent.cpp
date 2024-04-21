@@ -1,5 +1,10 @@
 #include "MachineTileComponent.h"
 
+MachineTileComponent::MachineTileComponent(Actor* ownerP) :
+	Component(ownerP)
+{
+}
+
 void MachineTileComponent::addMTile(MachineTile* mt)
 {
 	machineTileList.push_back(mt);
@@ -30,7 +35,7 @@ bool MachineTileComponent::tileAlreadyUpdated(MachineTile* mt)
 void MachineTileComponent::update(float dt)
 {
 	tileToUpdate.clear();
-	std::copy(machineTileList.begin(), machineTileList.end(), tileToUpdate.begin());
+	tileToUpdate = machineTileList;
 
 	while (!tileToUpdate.empty()) {
 		MachineTile* currentTile = tileToUpdate[0];

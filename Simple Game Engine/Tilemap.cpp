@@ -58,10 +58,10 @@ Tilemap::Tilemap(Actor* ownerP, Tileset* tset, bool isEmpty = false):
         setTileMapFromIdMap(idMap);
     }
     else {
-        TilemapContent.resize(40, vector<Tile>(40));
+        TilemapContent.resize(40, vector<Tile*>(40));
         for (int x = 0; x < TilemapContent.size(); x++) {
             for (int y = 0; y < TilemapContent[x].size(); y++) {
-                TilemapContent[x][y] = Tile::Null;
+                TilemapContent[x][y] = nullptr;// Tile::Null;
             }
         }
     }
@@ -77,7 +77,7 @@ Tilemap::Tilemap(Actor* ownerP, Tileset* tset, bool isEmpty = false):
 
 void Tilemap::setTileMapFromIdMap(std::vector<std::vector<int>> &idMap) 
 {
-    TilemapContent.resize(idMap.size(), vector<Tile>(idMap[0].size()));
+    TilemapContent.resize(idMap.size(), vector<Tile*>(idMap[0].size()));
     for (int x = 0; x < idMap.size(); x++) {
         for (int y = 0; y < idMap[x].size(); y++) {
             Tile TileToPlace = Tile::Null;
@@ -100,19 +100,19 @@ void Tilemap::setTileMapFromIdMap(std::vector<std::vector<int>> &idMap)
             default: break;
             }
             TileToPlace.setRandomTID();
-            TilemapContent[x][y] = TileToPlace;
+            TilemapContent[x][y] = new Tile(TileToPlace);
         }
     }
 }
 
-Tile* Tilemap::getTileIdAtPos(float posx, float posy)
+Tile* Tilemap::getTileAtPos(float posx, float posy)
 {
-    return &TilemapContent[posy][posx];
+    return TilemapContent[posy][posx];
 }
 
-void Tilemap::setTileAtPos(float posx, float posy, Tile t)
+void Tilemap::setTileAtPos(float posx, float posy, Tile* t)
 {
-    t.setRandomTID();
+    t->setRandomTID();
     TilemapContent[posy][posx] = t;
 }
 

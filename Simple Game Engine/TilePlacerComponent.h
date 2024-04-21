@@ -7,7 +7,7 @@
 class TilePlacerComponent : public Component
 {
 public:
-	TilePlacerComponent(class Actor* ownerP, class Tilemap* tmap, std::vector<Tile> tList);
+	TilePlacerComponent(class Actor* ownerP, class Tilemap* tmap, std::vector<Tile*> tList);
 
 	void processInput(const struct InputState& inputState) override;
 
@@ -15,15 +15,17 @@ public:
 
 	void placeTile(Vector2 pos);
 
+	bool canPlace(Vector2 pos);
+
 private:
 
-	std::vector<Tile> tileList;
+	std::vector<Tile*> tileList;
 
 	int currentRotation = 0;
 
 	class Tilemap* map;
 	
-	Tile tileToPlace;
+	Tile* tileToPlace;
 
 	std::map<SDL_Scancode, int> inputMap{
 		{SDL_SCANCODE_0,9},

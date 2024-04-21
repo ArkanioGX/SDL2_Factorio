@@ -56,21 +56,19 @@ public:
 
 	Tag getTag() { return actorTag; };
 
-	/*template <typename T*> std::shared_ptr<T> GetComponent()
+	template <typename CompType>
+	inline CompType getComponent()
 	{
-		// Removed check to see if we are trying to get a class that 
-		// derives from component.
-
-		for (auto exisitingComponent : components)
+		for (Component* currComp : components)
 		{
-			if (std::dynamic_cast<T*>(p)(exisitingComponent))
+			CompType currentEntry = dynamic_cast<CompType>(currComp);
+			if (currentEntry != nullptr)
 			{
-				return std::dynamic_cast<T*>(p)(exisitingComponent);
+				return currentEntry;
 			}
 		}
-
 		return nullptr;
-	};*/
+	}
 
 private:
 	Game& game;

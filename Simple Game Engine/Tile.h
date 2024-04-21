@@ -14,12 +14,26 @@ public:
 	enum PlaceableOn { Everything, Nothing, OnlyTransport };
 	enum Type { Basic, Ore, Machine };
 
+	
+
 	static unsigned int seed;
 
 	Tile() : tileID(0), randomTileID(false),randomRotate(false), rotation(0), canRotate(true), type(Type::Basic), placeType(PlaceableOn::Nothing) {};
 	Tile(int tID, float rot, bool cRot,bool rRot, Type t, PlaceableOn pOn) : tileID(tID),  randomTileID(false), rotation(rot), canRotate(cRot),randomRotate(rRot), type(t), placeType(pOn) {}
 	Tile(std::vector<int> tID,  float rot, bool cRot, bool rRot,Type t, PlaceableOn pOn) : tileIDlist(tID),tileID(tID[0]), randomTileID(true), rotation(rot), canRotate(cRot), randomRotate(rRot), type(t), placeType(pOn) {
 	}
+
+	// copy constructor
+	Tile(const Tile& other) : 
+		tileID(other.tileID),
+		tileIDlist(other.tileIDlist),
+		randomTileID(other.randomTileID),
+		rotation(other.rotation),
+		canRotate(other.canRotate),
+		randomRotate(other.randomRotate),
+		type(other.type),
+		placeType(other.placeType)
+	{} 
 
 	//Tileset* tset;
 	bool canRotate;
@@ -40,8 +54,4 @@ public:
 	static const Tile DDeepWater;
 
 	void setRandomTID();
-
-	bool isANullTile() {
-		return tileID == -1;
-	}
 };
