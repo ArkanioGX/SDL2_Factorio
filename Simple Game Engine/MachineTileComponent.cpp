@@ -1,4 +1,5 @@
 #include "MachineTileComponent.h"
+#include "Log.h"
 
 MachineTileComponent::MachineTileComponent(Actor* ownerP) :
 	Component(ownerP)
@@ -8,6 +9,7 @@ MachineTileComponent::MachineTileComponent(Actor* ownerP) :
 void MachineTileComponent::addMTile(MachineTile* mt)
 {
 	machineTileList.push_back(mt);
+	mt->ownerComponent = this;
 }
 
 void MachineTileComponent::removeMTile(MachineTile* mt)
@@ -39,9 +41,11 @@ void MachineTileComponent::update(float dt)
 	tileToUpdate.clear();
 	tileToUpdate = machineTileList;
 
+	Log::info(" === | === | === | === | === ");
+
 	while (!tileToUpdate.empty()) {
 		MachineTile* currentTile = tileToUpdate[0];
-		currentTile->update(dt, this);
+		currentTile->update(dt);
 	}
 
 	

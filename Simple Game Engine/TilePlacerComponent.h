@@ -23,6 +23,8 @@ private:
 
 	int currentRotation = 0;
 
+	int currentTilePlacedOrder = 0;
+
 	class Tilemap* map;
 	
 	Tile* tileToPlace;

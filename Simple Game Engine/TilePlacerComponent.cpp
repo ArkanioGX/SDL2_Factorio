@@ -50,7 +50,7 @@ void TilePlacerComponent::setNewTileToPlace(const InputState& inputState)
 
 void TilePlacerComponent::placeTile(Vector2 pos)
 {
-	Tile* t = tileToPlace;
+	Tile* t = new Tile(*tileToPlace);
 	if (t->canRotate) {
 		t->rotation = currentRotation * Maths::piOver2;
 	}
@@ -67,7 +67,9 @@ void TilePlacerComponent::placeTile(Vector2 pos)
 		}
 
 	}
+	t->name = std::to_string(currentTilePlacedOrder);
 	map->setTileAtPos(pos.x, pos.y, t);
+	currentTilePlacedOrder++;
 }
 
 bool TilePlacerComponent::canPlace(Vector2 pos)

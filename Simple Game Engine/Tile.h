@@ -5,6 +5,7 @@
 #include "Random.h"
 #include <Time.h>
 #include "Maths.h"
+#include <string>
 
 class TilemapSpriteComponent;
 
@@ -23,7 +24,6 @@ public:
 	Tile(std::vector<int> tID,  float rot, bool cRot, bool rRot,Type t, PlaceableOn pOn) : tileIDlist(tID),tileID(tID[0]), randomTileID(true), rotation(rot), canRotate(cRot), randomRotate(rRot), type(t), placeType(pOn) {
 	}
 
-	// copy constructor
 	Tile(const Tile& other) : 
 		tileID(other.tileID),
 		tileIDlist(other.tileIDlist),
@@ -44,6 +44,7 @@ public:
 	Type type;
 	PlaceableOn placeType;
 	bool randomTileID;
+	std::string name;
 
 	static const Tile Null;
 

@@ -6,6 +6,12 @@ class ConveyorTile : public MachineTile
 public:
 	ConveyorTile() : MachineTile(), speed(0), itemSize(0), itemList({}) {};
 	ConveyorTile(int tID, float rot, bool cRot, float s, float is) : MachineTile(tID, rot, cRot), speed(s), itemSize(is), itemList({}) {};
+	ConveyorTile(const ConveyorTile& other):
+		MachineTile(other.tileID, other.rotation, other.canRotate),
+		speed(other.speed),
+		itemSize(other.itemSize),
+		itemList({})
+	{};
 
 	static float t;
 	float speed;
@@ -15,5 +21,7 @@ public:
 	std::vector<Item> itemList;
 
 	static const ConveyorTile base;
+
+	void update(float dt) override;
 };
 
