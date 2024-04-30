@@ -8,13 +8,15 @@ public:
 
 	MachineTile() : Tile(),inputTile({}), outputTile({}) {};
 	//Tile(int tID, float rot, bool cRot, bool rRot, Type t, PlaceableOn pOn);
-	MachineTile(int tID, float rot, bool cRot) : Tile(tID, rot, cRot, false, Type::Machine, PlaceableOn::Everything) {};
+	MachineTile(std::string tname, int tID, float rot, bool cRot) : Tile(tname,tID, rot, cRot, false, Type::Machine, PlaceableOn::Everything) {};
 
 	MachineTile(const MachineTile& other) :
-		Tile(other.tileID,other.rotation,other.canRotate,false, Type::Machine, PlaceableOn::Everything),
+		Tile(other.tileName,other.tileID,other.rotation,other.canRotate,false, Type::Machine, PlaceableOn::Everything),
 		inputTile({}),
 		outputTile({})
 	{}
+
+	Tile* copy() override;
 
 	class MachineTileComponent* ownerComponent;
 

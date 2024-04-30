@@ -1,6 +1,11 @@
 #include "MachineTile.h"
 #include "MachineTileComponent.h"
 
+Tile* MachineTile::copy()
+{
+	return new MachineTile(*this);
+}
+
 void MachineTile::update(float dt)
 {
 	for (int i = 0; i < outputTile.size(); i++) {

@@ -50,7 +50,7 @@ void TilePlacerComponent::setNewTileToPlace(const InputState& inputState)
 
 void TilePlacerComponent::placeTile(Vector2 pos)
 {
-	Tile* t = new Tile(*tileToPlace);
+	Tile* t = tileToPlace->copy();
 	if (t->canRotate) {
 		t->rotation = currentRotation * Maths::piOver2;
 	}
@@ -75,5 +75,5 @@ void TilePlacerComponent::placeTile(Vector2 pos)
 bool TilePlacerComponent::canPlace(Vector2 pos)
 {
 	Tile* t = map->getTileAtPos(pos.x, pos.y);
-	return t == nullptr || t->placeType == Tile::PlaceableOn::Everything ;
+	return t == nullptr || (t->placeType == Tile::PlaceableOn::Everything && *t != tileToPlace);
 }

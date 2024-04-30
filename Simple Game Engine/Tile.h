@@ -5,6 +5,7 @@
 #include "Random.h"
 #include <Time.h>
 #include "Maths.h"
+#include "Log.h"
 #include <string>
 
 class TilemapSpriteComponent;
@@ -20,8 +21,8 @@ public:
 	static unsigned int seed;
 
 	Tile() : tileID(0), randomTileID(false),randomRotate(false), rotation(0), canRotate(true), type(Type::Basic), placeType(PlaceableOn::Nothing) {};
-	Tile(int tID, float rot, bool cRot,bool rRot, Type t, PlaceableOn pOn) : tileID(tID),  randomTileID(false), rotation(rot), canRotate(cRot),randomRotate(rRot), type(t), placeType(pOn) {}
-	Tile(std::vector<int> tID,  float rot, bool cRot, bool rRot,Type t, PlaceableOn pOn) : tileIDlist(tID),tileID(tID[0]), randomTileID(true), rotation(rot), canRotate(cRot), randomRotate(rRot), type(t), placeType(pOn) {
+	Tile(std::string tname, int tID, float rot, bool cRot,bool rRot, Type t, PlaceableOn pOn) : tileName(tname), tileID(tID),  randomTileID(false), rotation(rot), canRotate(cRot),randomRotate(rRot), type(t), placeType(pOn) {}
+	Tile(std::string tname, std::vector<int> tID,  float rot, bool cRot, bool rRot,Type t, PlaceableOn pOn) :tileName(tname), tileIDlist(tID),tileID(tID[0]), randomTileID(true), rotation(rot), canRotate(cRot), randomRotate(rRot), type(t), placeType(pOn) {
 	}
 
 	Tile(const Tile& other) : 
@@ -35,6 +36,8 @@ public:
 		placeType(other.placeType)
 	{} 
 
+	virtual Tile* copy();
+
 	//Tileset* tset;
 	bool canRotate;
 	bool randomRotate;
@@ -44,6 +47,7 @@ public:
 	Type type;
 	PlaceableOn placeType;
 	bool randomTileID;
+	std::string tileName;
 	std::string name;
 
 	static const Tile Null;
@@ -55,4 +59,13 @@ public:
 	static const Tile DDeepWater;
 
 	void setRandomTID();
+
+	inline bool operator!=(const Tile* rt) {
+		return tileName.compare(rt->tileName) != 0;
+	}
+
+	
+	inline bool operator==(const Tile* rt) {
+		return tileName.compare(rt->tileName) == 0;
+	}
 };
