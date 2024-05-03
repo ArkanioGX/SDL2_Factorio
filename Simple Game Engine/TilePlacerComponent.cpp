@@ -32,6 +32,9 @@ void TilePlacerComponent::processInput(const InputState& inputState)
 	}
 	if (inputState.keyboard.getKeyState(SDL_SCANCODE_E) == ButtonState::Pressed) {
 		currentRotation = ( currentRotation - 1) % 4;
+		if (currentRotation < 0) {
+			currentRotation += 4;
+		}
 	}
 	setNewTileToPlace(inputState);
 }
@@ -53,11 +56,16 @@ void TilePlacerComponent::placeTile(Vector2 pos)
 	Tile* t = tileToPlace->copy();
 	if (t->canRotate) {
 		t->rotation = currentRotation * Maths::piOver2;
+		t->rotateID = currentRotation % 4;
 	}
 	if (t->type == Tile::Type::Machine) {
 		MachineTileComponent* mtc = owner.getComponent<MachineTileComponent*>();
 		if (mtc != nullptr) {
-			mtc->addMTile(static_cast<MachineTile*>(t));
+			MachineTile* mt = static_cast<MachineTile*>(t);
+			mtc->addMTile(mt);
+			mt->currentPos = pos;
+			mt->connectToNearby();
+			
 		}
 		Tile* tileAtPlace = map->getTileAtPos(pos.x, pos.y);
 		if (tileAtPlace != nullptr) {

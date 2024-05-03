@@ -1,8 +1,9 @@
 #include "MachineTileComponent.h"
 #include "Log.h"
 
-MachineTileComponent::MachineTileComponent(Actor* ownerP) :
-	Component(ownerP)
+MachineTileComponent::MachineTileComponent(Actor* ownerP, Tilemap* tmap) :
+	Component(ownerP),
+	map(tmap)
 {
 }
 
@@ -38,6 +39,7 @@ bool MachineTileComponent::tileAlreadyUpdated(MachineTile* mt)
 
 void MachineTileComponent::update(float dt)
 {
+	
 	tileToUpdate.clear();
 	tileToUpdate = machineTileList;
 
@@ -47,6 +49,6 @@ void MachineTileComponent::update(float dt)
 		MachineTile* currentTile = tileToUpdate[0];
 		currentTile->update(dt);
 	}
-
+	
 	
 }

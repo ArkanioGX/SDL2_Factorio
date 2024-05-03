@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 #include "MachineTile.h"
+#include "Tilemap.h"
 #include <vector>
 
 
@@ -11,9 +12,13 @@ private:
 
 	std::vector<MachineTile*> tileToUpdate;
 
+
+
 public:
 
-	MachineTileComponent(class Actor* ownerP);
+	MachineTileComponent(class Actor* ownerP,Tilemap* tmap);
+
+	Tilemap* map;
 
 	void addMTile(MachineTile* mt);
 	void removeMTile(MachineTile* mt);

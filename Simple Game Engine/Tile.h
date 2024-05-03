@@ -41,6 +41,7 @@ public:
 	//Tileset* tset;
 	bool canRotate;
 	bool randomRotate;
+	int rotateID = 0;
 	float rotation;
 	int tileID;
 	std::vector<int> tileIDlist;
@@ -49,6 +50,8 @@ public:
 	bool randomTileID;
 	std::string tileName;
 	std::string name;
+
+	
 
 	static const Tile Null;
 

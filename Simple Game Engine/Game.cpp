@@ -166,7 +166,7 @@ void Game::load() {
 	Tilemap* tmap2 = new Tilemap(machineTM, machineTset,true);
 	TilemapSpriteComponent* tmsc2 = new TilemapSpriteComponent(machineTM, tmap2);
 	TilePlacerComponent* tpc2 = new TilePlacerComponent(machineTM, tmap2, std::vector<Tile*>{new ConveyorTile(ConveyorTile::base)});
-	MachineTileComponent* mtc = new MachineTileComponent(machineTM);
+	MachineTileComponent* mtc = new MachineTileComponent(machineTM,tmap2);
 }
 
 void Game::unload() {

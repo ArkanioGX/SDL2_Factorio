@@ -19,6 +19,8 @@ private:
 
 
 public:
+	bool isInsideMap(Vector2 pos);
+
 	Tilemap(Actor* ownerP, Tileset* tset, bool isEmpty);
 
 	Tile* getTileAtPos(float posx, float posy);
