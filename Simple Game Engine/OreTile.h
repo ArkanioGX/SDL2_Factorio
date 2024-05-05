@@ -5,7 +5,7 @@ class OreTile : public Tile
 {
 public:
 
-	OreTile() :Tile() {};
+	OreTile() :Tile(), drop(Item::Test) {};
 	OreTile(std::string tname,float tID, Item i,float d, float rot, bool cRot,bool rRot, PlaceableOn pOn) : Tile(tname,tID, rot, cRot,rRot, Type::Ore, pOn),drop(i),density(d) {};
 
 	Item drop;

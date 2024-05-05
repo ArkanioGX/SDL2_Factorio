@@ -4,13 +4,13 @@
 class ConveyorTile : public MachineTile
 {
 public:
-	ConveyorTile() : MachineTile(), speed(0), itemSize(0), itemList({}) {};
-	ConveyorTile(std::string tname, int tID, float rot, bool cRot, float s, float is, bool mo) : MachineTile(tname, tID, rot, cRot,mo), speed(s), itemSize(is), itemList({}) { };
+	ConveyorTile() : MachineTile(), speed(0), itemSize(0), itemCList({}) {};
+	ConveyorTile(std::string tname, int tID, float rot, bool cRot, float s, float is, bool mo) : MachineTile(tname, tID, rot, cRot,mo), speed(s), itemSize(is), itemCList({}) { };
 	ConveyorTile(const ConveyorTile& other):
 		MachineTile(other.tileName,other.tileID, other.rotation, other.canRotate,other.multiInput),
 		speed(other.speed),
 		itemSize(other.itemSize),
-		itemList({})
+		itemCList({})
 	{};
 
 
@@ -23,10 +23,12 @@ public:
 
 	const float itemSize;
 
-	std::vector<Item> itemList;
+	std::vector<ItemContainer*> itemCList;
 
 	static const ConveyorTile base;
 
 	void update(float dt) override;
+	std::vector<ItemRenderContainer> additiveDraw() override;
+	bool giveItem(ItemContainer* it) override;
 };
 

@@ -1,6 +1,24 @@
 #pragma once
 #include "Tile.h"
 #include <vector>
+#include "Item.h"
+
+struct ItemContainer {
+	Item item;
+	float t = 0;
+	bool hasItem() {
+		return !item.isNull();
+	}
+	bool isBlocked = false;
+	int inSide = 0;
+
+};
+
+struct ItemRenderContainer {
+public:
+	Vector2 pos;
+	Texture tex;
+};
 
 class MachineTile : public Tile
 {
@@ -29,7 +47,9 @@ public:
 
 	std::vector<MachineTile*> inputTile, outputTile;
 	virtual void update(float dt);
-	virtual void additiveDraw();
+	virtual std::vector<ItemRenderContainer> additiveDraw();
+
+	virtual bool giveItem(ItemContainer* it);
 
 	virtual void connectToNearby();
 

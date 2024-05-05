@@ -25,8 +25,15 @@ void MachineTile::update(float dt)
 	ownerComponent->tileUpdate(this);
 }
 
-void MachineTile::additiveDraw()
+std::vector<ItemRenderContainer> MachineTile::additiveDraw()
 {
+	std::vector<ItemRenderContainer> ircl;
+	return ircl;
+}
+
+bool MachineTile::giveItem(ItemContainer* it)
+{
+	return true;
 }
 
 void MachineTile::addInput(MachineTile* mt)

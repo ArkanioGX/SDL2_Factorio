@@ -135,6 +135,7 @@ void Game::load() {
 	//Assets::loadTexture(renderer, "Res/TS_Dungeon1.png", "TerrainTileset");
 	
 	Assets::loadTexture(renderer, "Res/TestTileset.png", "TestTileset");
+	Assets::loadTexture(renderer, "Res/testItem.png", "TestItem");
 
 	
 	Actor* camActor = new Actor();

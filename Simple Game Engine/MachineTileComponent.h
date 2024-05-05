@@ -1,11 +1,11 @@
 #pragma once
-#include "Component.h"
+#include "SpriteComponent.h"
 #include "MachineTile.h"
 #include "Tilemap.h"
 #include <vector>
 
 
-class MachineTileComponent : public Component
+class MachineTileComponent : public SpriteComponent
 {
 private:
 	std::vector<MachineTile*> machineTileList;
@@ -16,7 +16,13 @@ private:
 
 public:
 
-	MachineTileComponent(class Actor* ownerP,Tilemap* tmap);
+	MachineTileComponent(class Actor* ownerP,Tilemap* tmap, int drawOrderP = 100);
+	virtual ~MachineTileComponent();
+	MachineTileComponent() = delete;
+	MachineTileComponent(const MachineTileComponent&) = delete;
+	MachineTileComponent& operator=(const MachineTileComponent&) = delete;
+
+	void draw(Renderer& renderer) override;
 
 	Tilemap* map;
 

@@ -6,7 +6,7 @@ class TilemapSpriteComponent : public SpriteComponent
 {
 public:
 	TilemapSpriteComponent(Actor* ownerP, Tilemap* tmap , int drawOrderP = 100);
-	virtual ~TilemapSpriteComponent();
+	~TilemapSpriteComponent() override;
 	TilemapSpriteComponent() = delete;
 	TilemapSpriteComponent(const TilemapSpriteComponent&) = delete;
 	TilemapSpriteComponent& operator=(const TilemapSpriteComponent&) = delete;

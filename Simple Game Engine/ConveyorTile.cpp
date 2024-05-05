@@ -95,11 +95,104 @@ void ConveyorTile::connectToNearby()
 			mt->addOutput(this);
 		}
 	}
-	//
+	
+	itemCList.clear();
+	ItemContainer* ic = new ItemContainer{Item::Test,0.0f,false,2};
+	itemCList.push_back(ic);
 }
 
 void ConveyorTile::update(float dt)
 {
 	MachineTile::update(dt);
-	Log::info(name);
+	for (int i = 0; i < itemCList.size(); i++) {
+		ItemContainer* icl = itemCList[i];
+		if (icl->hasItem()) {
+			icl->t = icl->t + dt;
+			if (icl->t > 1) {
+				
+			}
+		}
+	}
+}
+
+std::vector<ItemRenderContainer> ConveyorTile::additiveDraw()
+{
+	std::vector<ItemRenderContainer> ircl;
+	ItemRenderContainer ItemToRender;
+	Item i = Item::Test;
+	ItemToRender.tex = i.texture;
+	
+
+	Vector2 endPos;
+	switch (rotateID) {
+	case 0:
+		endPos = Vector2(-0.5, 0.5);
+		break;
+	case 1:
+		endPos = Vector2(0.5, 1.5);
+		break;
+	case 2:
+		endPos = Vector2(1.5, 0.5);
+		break;
+	case 3:
+		endPos = Vector2(0.5, -0.5);
+		break;
+	}
+
+	Vector2 midPos = Vector2(0.5, 0.5);
+
+	
+	
+
+	
+	for (int i = 0; i < itemCList.size(); i++) {
+		ItemRenderContainer ItemToRender;
+		ItemContainer* ic = itemCList[i];
+		if (ic->hasItem()) {
+			ItemToRender.tex = ic->item.texture;
+
+			Vector2 startPos;
+			switch (ic->inSide) {
+			case 0:
+				startPos = Vector2(-0.5, 0.5);
+				break;
+			case 1:
+				startPos = Vector2(0.5, 1.5);
+				break;
+			case 2:
+				startPos = Vector2(1.5, 0.5);
+				break;
+			case 3:
+				startPos = Vector2(0.5, -0.5);
+				break;
+			}
+
+			Vector2 newPos;
+
+			if (ic->t <= 0.5) {
+				newPos = Vector2::lerp(startPos, midPos, (ic->t * 2));
+			}
+			else {
+				newPos = Vector2::lerp(midPos, endPos, ((ic->t - 0.5) * 2));
+			}
+
+			ItemToRender.pos = newPos;
+
+
+
+			ircl.push_back(ItemToRender);
+		}
+	}
+	return ircl;
+}
+
+bool ConveyorTile::giveItem(ItemContainer* it)
+{
+	ItemContainer* ic = itemCList[itemCList.size() - 1];
+	if (!ic->hasItem()) {
+		ic->item = ic->item;
+		it->item = Item::None;
+		return true;
+	}
+	return false;
 }
