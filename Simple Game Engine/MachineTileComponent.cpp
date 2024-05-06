@@ -17,10 +17,12 @@ void MachineTileComponent::draw(Renderer& renderer)
 		MachineTile* mt = machineTileList[i];
 		Vector2 tpos = (owner.getPosition() + map->getPosGridToLocal(mt->currentPos.x, mt->currentPos.y)) * owner.getScale();
 		std::vector<ItemRenderContainer> irl = mt->additiveDraw();
-		ItemRenderContainer irc = irl[0];
-		Vector2 textureRatio = Vector2{map->getTileset()->getTileRatio()};
-		Vector2 tilePos = tpos + (irc.pos * map->getTileset()->getTileSize() * owner.getScale());
-		renderer.drawSprite(tilePos, 0, owner.getScale() * textureRatio, irc.tex, Rectangle::nullRect, Vector2::zero, Renderer::Flip::None);
+		for (int i = 0; i < irl.size(); i++) {
+			ItemRenderContainer irc = irl[i];
+			Vector2 textureRatio = Vector2{ map->getTileset()->getTileRatio() };
+			Vector2 tilePos = tpos + (irc.pos * map->getTileset()->getTileSize() * owner.getScale());
+			renderer.drawSprite(tilePos, 0, owner.getScale() * textureRatio, irc.tex, Rectangle::nullRect, Vector2::zero, Renderer::Flip::None);
+		}
 	}
 }
 

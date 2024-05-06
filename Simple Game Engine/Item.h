@@ -10,25 +10,27 @@ public:
 	std::string itemName;
 	Texture& texture;
 
-	const static Item None;
-	const static Item Test;
-
 	Item(std::string iName, Texture& tex ) :
 		itemName(iName),
 		texture(tex)
 	{}
 
+	
 	Item(const Item& other) :
 		itemName(other.itemName),
 		texture(other.texture) 
 	{}
 
+	Item& operator=(const Item& it) {
+		this->itemName = it.itemName;
+		this->texture = it.texture;
+		return *this;
+	}
+
 	bool isNull();
 
-	Item operator=(const Item other)
-	{
-		return other;
-	}
+	static const Item None;
+	static const Item Test;
 };
 
 inline bool operator==(const Item& r, const Item& l) {

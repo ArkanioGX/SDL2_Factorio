@@ -107,9 +107,21 @@ void ConveyorTile::update(float dt)
 	for (int i = 0; i < itemCList.size(); i++) {
 		ItemContainer* icl = itemCList[i];
 		if (icl->hasItem()) {
-			icl->t = icl->t + dt;
+			if (!icl->isBlocked) {
+				icl->t = icl->t + dt;
+			}
 			if (icl->t > 1) {
-				
+				if (outputTile.size() > 0 && outputTile[0]->giveItem(icl)) {
+					icl->t = 0;
+					icl->item = Item::None;
+					icl->isBlocked = false;
+				}
+				else {
+					icl->t = 0;
+					icl->item = Item::None;
+					//icl->isBlocked = true;
+					//icl->t = 1;
+				}
 			}
 		}
 	}
@@ -190,7 +202,8 @@ bool ConveyorTile::giveItem(ItemContainer* it)
 {
 	ItemContainer* ic = itemCList[itemCList.size() - 1];
 	if (!ic->hasItem()) {
-		ic->item = ic->item;
+
+		ic->item = it->item;
 		it->item = Item::None;
 		return true;
 	}

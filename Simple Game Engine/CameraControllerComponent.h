@@ -34,7 +34,7 @@ private:
 	Camera* cam;
 
 	float currentZoom = 1;
-	float minZoom = 0.1;
+	float minZoom = 0.5;
 	float maxZoom = 2;
 
 	bool isClamped = false;
