@@ -12,7 +12,7 @@ private:
 
 	std::vector<MachineTile*> tileToUpdate;
 
-
+	std::vector<MachineTile*> tileToDraw;
 
 public:
 
@@ -25,6 +25,8 @@ public:
 	void draw(Renderer& renderer) override;
 
 	Tilemap* map;
+
+	void addTileToDraw(MachineTile* mt);
 
 	void addMTile(MachineTile* mt);
 	void removeMTile(MachineTile* mt);

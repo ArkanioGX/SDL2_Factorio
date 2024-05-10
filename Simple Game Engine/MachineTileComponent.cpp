@@ -13,8 +13,8 @@ MachineTileComponent::~MachineTileComponent()
 
 void MachineTileComponent::draw(Renderer& renderer)
 {
-	for (int i = 0; i < machineTileList.size(); i++) {
-		MachineTile* mt = machineTileList[i];
+	for (int i = 0; i < tileToDraw.size(); i++) {
+		MachineTile* mt = tileToDraw[i];
 		Vector2 tpos = (owner.getPosition() + map->getPosGridToLocal(mt->currentPos.x, mt->currentPos.y)) * owner.getScale();
 		std::vector<ItemRenderContainer> irl = mt->additiveDraw();
 		for (int i = 0; i < irl.size(); i++) {
@@ -24,6 +24,11 @@ void MachineTileComponent::draw(Renderer& renderer)
 			renderer.drawSprite(tilePos, 0, owner.getScale() * textureRatio, irc.tex, Rectangle::nullRect, Vector2::zero, Renderer::Flip::None);
 		}
 	}
+}
+
+void MachineTileComponent::addTileToDraw(MachineTile* mt)
+{
+	tileToDraw.push_back(mt);
 }
 
 void MachineTileComponent::addMTile(MachineTile* mt)
@@ -48,6 +53,7 @@ void MachineTileComponent::tileUpdate(MachineTile* mt)
 	if (mit != tileToUpdate.end()) {
 		tileToUpdate.erase(mit);
 	}
+	addTileToDraw(mt);
 }
 
 bool MachineTileComponent::tileAlreadyUpdated(MachineTile* mt)
@@ -58,11 +64,9 @@ bool MachineTileComponent::tileAlreadyUpdated(MachineTile* mt)
 
 void MachineTileComponent::update(float dt)
 {
-	
+	tileToDraw.clear();
 	tileToUpdate.clear();
 	tileToUpdate = machineTileList;
-
-	Log::info(" === | === | === | === | === ");
 
 	while (!tileToUpdate.empty()) {
 		MachineTile* currentTile = tileToUpdate[0];

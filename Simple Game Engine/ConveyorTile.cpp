@@ -3,6 +3,17 @@
 #include "MachineTileComponent.h"
 
 const ConveyorTile ConveyorTile::base("baseConveyor",0,0.0f,true,1,2,false);
+const ConveyorTile ConveyorTile::upgrade("upgradedConveyor", 0, 0.0f, true, 4, 4, false);
+
+void ConveyorTile::init()
+{
+	itemCList.clear();
+	for (int i = 0; i < itemSize; i++) {
+		float bt = (1 / float(itemSize)) * ((itemSize-1)-i);
+		ItemContainer* ic = new ItemContainer{ Item::Test,bt,0.0f,itemSize,false,2 };
+		itemCList.push_back(ic);
+	}
+}
 
 Tile* ConveyorTile::copy()
 {
@@ -51,7 +62,7 @@ void ConveyorTile::connectToNearby()
 						addInput(mt);
 						mt->addOutput(this);
 					}
-					else if ((mt->rotateID + 2) % 4 == rotateID) {
+					else if ((mt->rotateID + 2) % 4 == r) {
 						addInput(mt);
 						mt->addOutput(this);
 					}
@@ -96,9 +107,7 @@ void ConveyorTile::connectToNearby()
 		}
 	}
 	
-	itemCList.clear();
-	ItemContainer* ic = new ItemContainer{Item::Test,0.0f,false,2};
-	itemCList.push_back(ic);
+	
 }
 
 void ConveyorTile::update(float dt)
@@ -108,31 +117,36 @@ void ConveyorTile::update(float dt)
 		ItemContainer* icl = itemCList[i];
 		if (icl->hasItem()) {
 			if (!icl->isBlocked) {
-				icl->t = icl->t + dt;
+				icl->t = icl->t + dt * speed;
 			}
-			if (icl->t > 1) {
-				if (outputTile.size() > 0 && outputTile[0]->giveItem(icl)) {
+			if (icl->t >= 1) {
+				if (nextItemContainer(i)) {
 					icl->t = 0;
 					icl->item = Item::None;
 					icl->isBlocked = false;
 				}
 				else {
-					icl->t = 0;
-					icl->item = Item::None;
-					//icl->isBlocked = true;
-					//icl->t = 1;
+					if (outputTile.size() == 0) { //TODO : Remove later
+						icl->t = 0;
+						icl->item = Item::None;
+					}
+					else {
+						icl->isBlocked = true;
+						icl->t = 1;
+					}
+
 				}
+				
 			}
 		}
 	}
 }
 
+
+
 std::vector<ItemRenderContainer> ConveyorTile::additiveDraw()
 {
 	std::vector<ItemRenderContainer> ircl;
-	ItemRenderContainer ItemToRender;
-	Item i = Item::Test;
-	ItemToRender.tex = i.texture;
 	
 
 	Vector2 endPos;
@@ -179,13 +193,15 @@ std::vector<ItemRenderContainer> ConveyorTile::additiveDraw()
 				break;
 			}
 
+			float newT = ic->baseT + (ic->t / ic->iSize);
+
 			Vector2 newPos;
 
-			if (ic->t <= 0.5) {
-				newPos = Vector2::lerp(startPos, midPos, (ic->t * 2));
+			if (newT <= 0.5) {
+				newPos = Vector2::lerp(startPos, midPos, (newT * 2));
 			}
 			else {
-				newPos = Vector2::lerp(midPos, endPos, ((ic->t - 0.5) * 2));
+				newPos = Vector2::lerp(midPos, endPos, ((newT - 0.5) * 2));
 			}
 
 			ItemToRender.pos = newPos;
@@ -198,14 +214,39 @@ std::vector<ItemRenderContainer> ConveyorTile::additiveDraw()
 	return ircl;
 }
 
-bool ConveyorTile::giveItem(ItemContainer* it)
+bool ConveyorTile::giveItem(ItemContainer* it, int side)
 {
 	ItemContainer* ic = itemCList[itemCList.size() - 1];
 	if (!ic->hasItem()) {
-
+		ic->t = it->t - 1;
+		ic->inSide = (side + 2) % 4;
 		ic->item = it->item;
 		it->item = Item::None;
 		return true;
 	}
 	return false;
+}
+
+bool ConveyorTile::nextItemContainer(int contId)
+{
+	if (contId == 0) {
+		if (outputTile.size() > 0) {
+			return outputTile[0]->giveItem(itemCList[contId], rotateID);
+		}
+		return false;
+	}
+	else {
+		int newCID = contId - 1;
+		ItemContainer* ic = itemCList[newCID];
+		if (ic->hasItem()) {
+			return false;
+		}
+		else {
+			ic->t = itemCList[contId]->t - 1;
+			ic->inSide = (rotateID + 2) % 4;
+			ic->item = itemCList[contId]->item;
+			itemCList[contId]->item = Item::None;
+			return true;
+		}
+	}
 }

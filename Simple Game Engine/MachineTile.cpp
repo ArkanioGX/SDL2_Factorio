@@ -31,14 +31,17 @@ std::vector<ItemRenderContainer> MachineTile::additiveDraw()
 	return ircl;
 }
 
-bool MachineTile::giveItem(ItemContainer* it)
+bool MachineTile::giveItem(ItemContainer* it, int side = 0)
 {
 	return true;
 }
 
 void MachineTile::addInput(MachineTile* mt)
 {
-	inputTile.push_back(mt);
+	std::vector<MachineTile*>::iterator it = std::find(inputTile.begin(), inputTile.end(), mt);
+	if (it == inputTile.end()) {
+		inputTile.push_back(mt);
+	}
 }
 
 void MachineTile::removeInput(MachineTile* mt)
@@ -52,7 +55,10 @@ void MachineTile::removeInput(MachineTile* mt)
 
 void MachineTile::addOutput(MachineTile* mt)
 {
-	outputTile.push_back(mt);
+	std::vector<MachineTile*>::iterator it = std::find(outputTile.begin(), outputTile.end(), mt);
+	if (it == outputTile.end()) {
+		outputTile.push_back(mt);
+	}
 }
 
 void MachineTile::removeOutput(MachineTile* mt)

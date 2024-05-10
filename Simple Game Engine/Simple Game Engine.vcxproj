@@ -159,6 +159,7 @@
     <ClCompile Include="MachineTile.cpp" />
     <ClCompile Include="MachineTileComponent.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MinerTile.cpp" />
     <ClCompile Include="MouseState.cpp" />
     <ClCompile Include="MoveComponent.cpp" />
     <ClCompile Include="OreTile.cpp" />
@@ -197,6 +198,7 @@
     <ClInclude Include="MachineTile.h" />
     <ClInclude Include="MachineTileComponent.h" />
     <ClInclude Include="Maths.h" />
+    <ClInclude Include="MinerTile.h" />
     <ClInclude Include="MouseState.h" />
     <ClInclude Include="MoveComponent.h" />
     <ClInclude Include="OreTile.h" />

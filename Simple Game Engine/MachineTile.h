@@ -5,7 +5,9 @@
 
 struct ItemContainer {
 	Item item;
+	float baseT = 0;
 	float t = 0;
+	int iSize = 1;
 	bool hasItem() {
 		return !item.isNull();
 	}
@@ -49,7 +51,7 @@ public:
 	virtual void update(float dt);
 	virtual std::vector<ItemRenderContainer> additiveDraw();
 
-	virtual bool giveItem(ItemContainer* it);
+	virtual bool giveItem(ItemContainer* it, int side);
 
 	virtual void connectToNearby();
 
