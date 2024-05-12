@@ -17,12 +17,13 @@ Tile* MachineTile::copy()
 
 void MachineTile::update(float dt)
 {
+	ownerComponent->tileUpdate(this);
 	for (int i = 0; i < outputTile.size(); i++) {
 		if (!ownerComponent->tileAlreadyUpdated(outputTile[i])) {
 			outputTile[i]->update(dt);
 		}
 	}
-	ownerComponent->tileUpdate(this);
+	
 }
 
 std::vector<ItemRenderContainer> MachineTile::additiveDraw()
