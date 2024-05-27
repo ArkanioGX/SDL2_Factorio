@@ -10,7 +10,7 @@ void ConveyorTile::init()
 	itemCList.clear();
 	for (int i = 0; i < itemSize; i++) {
 		float bt = (1 / float(itemSize)) * ((itemSize-1)-i);
-		ItemContainer* ic = new ItemContainer{ Item::Test,bt,0.0f,itemSize,false,2 };
+		ItemContainer* ic = new ItemContainer{ Item::Test2,bt,0.0f,itemSize,false,2 };
 		itemCList.push_back(ic);
 	}
 }

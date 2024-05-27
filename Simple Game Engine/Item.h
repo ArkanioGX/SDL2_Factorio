@@ -31,6 +31,7 @@ public:
 
 	static const Item None;
 	static const Item Test;
+	static const Item Test2;
 };
 
 inline bool operator==(const Item& r, const Item& l) {
