@@ -10,16 +10,11 @@ struct Item
 public:
 	std::string itemName;
 	std::string tName;
-	Texture& texture;
+	Texture texture;
 
 	Item(std::string iName, std::string tex);
-		
-
 	
-	Item(const Item& other) :
-		itemName(other.itemName),
-		texture(other.texture) 
-	{}
+	Item(const Item& other);
 
 	Item& operator=(const Item& it);
 

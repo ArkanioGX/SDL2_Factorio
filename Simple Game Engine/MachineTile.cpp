@@ -23,7 +23,7 @@ void MachineTile::update(float dt)
 			outputTile[i]->update(dt);
 		}
 	}
-	
+	ownerComponent->addTileToDraw(this);
 }
 
 std::vector<ItemRenderContainer> MachineTile::additiveDraw()

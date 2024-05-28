@@ -3,14 +3,21 @@
 #include "MachineTileComponent.h"
 
 const ConveyorTile ConveyorTile::base("baseConveyor",0,0.0f,true,1,2,false);
-const ConveyorTile ConveyorTile::upgrade("upgradedConveyor", 0, 0.0f, true, 1, 4, false);
+const ConveyorTile ConveyorTile::upgrade("upgradedConveyor", 0, 0.0f, true, 2, 4, false);
 
 void ConveyorTile::init()
 {
 	itemCList.clear();
 	for (int i = 0; i < itemSize; i++) {
 		float bt = (1 / float(itemSize)) * ((itemSize-1)-i);
-		ItemContainer* ic = new ItemContainer{ Item::Silver,bt,0.0f,itemSize,false,2 };
+		ItemContainer* ic;
+		if (i % 2 == 0){
+			ic = new ItemContainer{ Item::Silver,bt,0.0f,itemSize,false,2 };
+		}
+		else {
+			ic = new ItemContainer{ Item::Iron,bt,0.0f,itemSize,false,2 };
+		}
+		
 		itemCList.push_back(ic);
 	}
 }

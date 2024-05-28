@@ -53,7 +53,7 @@ void MachineTileComponent::tileUpdate(MachineTile* mt)
 	if (mit != tileToUpdate.end()) {
 		tileToUpdate.erase(mit);
 	}
-	addTileToDraw(mt);
+	
 }
 
 bool MachineTileComponent::tileAlreadyUpdated(MachineTile* mt)
@@ -72,6 +72,5 @@ void MachineTileComponent::update(float dt)
 		MachineTile* currentTile = tileToUpdate[0];
 		currentTile->update(dt);
 	}
-	
 	
 }
