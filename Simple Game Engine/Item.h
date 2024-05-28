@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "Texture.h"
+#include "Assets.h"
 
 //TODO : Item placeholder
 
@@ -8,12 +9,11 @@ struct Item
 {
 public:
 	std::string itemName;
+	std::string tName;
 	Texture& texture;
 
-	Item(std::string iName, Texture& tex ) :
-		itemName(iName),
-		texture(tex)
-	{}
+	Item(std::string iName, std::string tex);
+		
 
 	
 	Item(const Item& other) :
@@ -21,17 +21,15 @@ public:
 		texture(other.texture) 
 	{}
 
-	Item& operator=(const Item& it) {
-		this->itemName = it.itemName;
-		this->texture = it.texture;
-		return *this;
-	}
+	Item& operator=(const Item& it);
+
+	void loadTexture();
 
 	bool isNull();
 
 	static const Item None;
-	static const Item Test;
-	static const Item Test2;
+	static const Item Iron;
+	static const Item Silver;
 };
 
 inline bool operator==(const Item& r, const Item& l) {
