@@ -8,10 +8,8 @@ const Item Item::Silver = Item{ "S","Silver" };
 
 Item::Item(std::string iName, std::string tex):
 	itemName(iName),
-	tName(tex),
-	texture(Assets::getTexture(tex))
+	tName(tex)
 {
-	this->loadTexture();
 }
 
 
