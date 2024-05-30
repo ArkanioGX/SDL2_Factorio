@@ -11,12 +11,7 @@ void ConveyorTile::init()
 	for (int i = 0; i < itemSize; i++) {
 		float bt = (1 / float(itemSize)) * ((itemSize-1)-i);
 		ItemContainer* ic;
-		if (i % 2 == 0){
-			ic = new ItemContainer{ Item::Silver,bt,0.0f,itemSize,false,2 };
-		}
-		else {
-			ic = new ItemContainer{ Item::Iron,bt,0.0f,itemSize,false,2 };
-		}
+		ic = new ItemContainer{ Item::None,bt,0.0f,itemSize,false,2 };
 		
 		itemCList.push_back(ic);
 	}
