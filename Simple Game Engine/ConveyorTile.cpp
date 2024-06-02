@@ -3,7 +3,13 @@
 #include "MachineTileComponent.h"
 
 const ConveyorTile ConveyorTile::base("baseConveyor",0,0.0f,true,1,2,false);
-const ConveyorTile ConveyorTile::upgrade("upgradedConveyor", 0, 0.0f, true, 2, 4, false);
+const ConveyorTile ConveyorTile::upgrade("upgradedConveyor", 0, 0.0f, true, 4, 4, false);
+
+ConveyorTile::~ConveyorTile()
+{
+	ClearAllIO();
+	itemCList.clear();
+}
 
 void ConveyorTile::init()
 {
@@ -11,7 +17,7 @@ void ConveyorTile::init()
 	for (int i = 0; i < itemSize; i++) {
 		float bt = (1 / float(itemSize)) * ((itemSize-1)-i);
 		ItemContainer* ic;
-		ic = new ItemContainer{ Item::Silver,bt,0.0f,itemSize,false,2 };
+		ic = new ItemContainer{ Item::None,bt,0.0f,itemSize,false,2 };
 		
 		itemCList.push_back(ic);
 	}
@@ -87,17 +93,9 @@ void ConveyorTile::update(float dt)
 					icl->isBlocked = false;
 				}
 				else {
-					if (outputTile.size() == 0) { //TODO : Remove later
-						icl->t = 0;
-						icl->item = Item::None;
-					}
-					else {
-						icl->isBlocked = true;
-						icl->t = 1;
-					}
-
+					icl->isBlocked = true;
+					icl->t = 1;
 				}
-				
 			}
 		}
 	}
@@ -182,7 +180,6 @@ bool ConveyorTile::giveItem(ItemContainer* it, int side)
 		ic->t = it->t - 1;
 		ic->inSide = (side + 2) % 4;
 		ic->item = it->item;
-		it->item = Item::None;
 		return true;
 	}
 	return false;

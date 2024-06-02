@@ -13,6 +13,7 @@ bool MachineTile::canConnect(int side, IOType io, MachineTile* mt)
 
 MachineTile::~MachineTile()
 {
+	ClearAllIO();
 }
 
 Tile* MachineTile::copy()
@@ -73,6 +74,20 @@ void MachineTile::removeOutput(MachineTile* mt)
 	while (it != outputTile.end()) {
 		outputTile.erase(it);
 		it = std::find(outputTile.begin(), outputTile.end(), mt);
+	}
+}
+
+void MachineTile::ClearAllIO()
+{
+	while (!inputTile.empty()) {
+		MachineTile* tileToRemove = inputTile.back();
+		tileToRemove->removeOutput(this);
+		removeInput(tileToRemove);
+	}
+	while (!outputTile.empty()) {
+		MachineTile* tileToRemove = outputTile.back();
+		tileToRemove->removeInput(this);
+		removeOutput(tileToRemove);
 	}
 }
 

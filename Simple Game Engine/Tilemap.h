@@ -26,6 +26,7 @@ public:
 	Tile* getTileAtPos(float posx, float posy);
 
 	void setTileAtPos(float posx, float posy, Tile* t);
+	void removeTileAtPos(float posx, float posy);
 
 	Vector2 getPosGridToLocal(float posx,float posy);
 

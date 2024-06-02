@@ -14,7 +14,8 @@ public:
 	MinerTile(std::string tname, int tID, float om);
 	MinerTile(const MinerTile& other);
 
-	std::vector<IOTile> ReceivingTile;
+	int lastOutput = 0;
+	IOTile getCurrentOutput();
 
 	void init();
 
@@ -24,6 +25,7 @@ public:
 	void connectToNearby() override;
 	bool canConnect(int side, IOType io, MachineTile* mt) override;
 
-	static const MinerTile baseMiner;
+	static const MinerTile baseSMiner;
+	static const MinerTile baseIMiner;
 };
 

@@ -1,5 +1,6 @@
 #include "MachineTileComponent.h"
 #include "Log.h"
+#include "MachineTile.h"
 
 MachineTileComponent::MachineTileComponent(Actor* ownerP, Tilemap* tmap, int drawOrderP ) :
 	SpriteComponent(ownerP,tmap->getTexture(), drawOrderP),
@@ -41,8 +42,8 @@ void MachineTileComponent::removeMTile(MachineTile* mt)
 {
 	std::vector<MachineTile*>::iterator mit = std::find(machineTileList.begin(), machineTileList.end(), mt);
 	if (mit != machineTileList.end()) {
+		delete *mit;
 		machineTileList.erase(mit);
-		//delete mt; TODO : To Implement
 	}
 	
 }

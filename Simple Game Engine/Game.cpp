@@ -14,6 +14,7 @@
 #include "ConveyorTile.h"
 #include "MachineTileComponent.h"
 #include "MinerTile.h"
+#include "InventoryTile.h"
 
 bool Game::initialize() {
 	bool isWindowInit = window.initialize();
@@ -168,7 +169,13 @@ void Game::load() {
 	Actor* machineTM = new Actor();
 	Tilemap* tmap2 = new Tilemap(machineTM, machineTset,true);
 	TilemapSpriteComponent* tmsc2 = new TilemapSpriteComponent(machineTM, tmap2);
-	TilePlacerComponent* tpc2 = new TilePlacerComponent(machineTM, tmap2, std::vector<Tile*>{new ConveyorTile(ConveyorTile::base), new ConveyorTile(ConveyorTile::upgrade), new MinerTile(MinerTile::baseMiner)});
+	TilePlacerComponent* tpc2 = new TilePlacerComponent(machineTM, tmap2, std::vector<Tile*>{
+		new ConveyorTile(ConveyorTile::base),
+		new ConveyorTile(ConveyorTile::upgrade),
+		new MinerTile(MinerTile::baseSMiner),
+		new MinerTile(MinerTile::baseIMiner),
+		new InventoryTile(InventoryTile::baseInventory)
+	});
 	MachineTileComponent* mtc = new MachineTileComponent(machineTM,tmap2);
 }
 

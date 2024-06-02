@@ -16,11 +16,7 @@ struct ItemContainer {
 
 };
 
-struct IOTile
-{
-	MachineTile* mTile;
-	int side;
-};
+
 
 enum IOType {
 	Output,
@@ -71,6 +67,8 @@ public:
 	void addOutput(MachineTile* mt);
 	void removeOutput(MachineTile* mt);
 
+	void ClearAllIO();
+
 	Vector2 getPosFromSide(int s) {
 		switch (s) {
 		case 0:
@@ -84,6 +82,36 @@ public:
 		}
 		return Vector2(0, 0);
 	}
+
+	int getSideFromPos(Vector2 p) {
+		
+		if (p.x == 0) {
+			if (p.y == 1) {
+				return 1;
+			}
+			else {
+				return 3;
+			}
+		}
+		else {
+			if (p.x == 1) {
+				return 2;
+			}
+			else {
+				return 0;
+			}
+		}
+		return 4;
+	}
+
+	Vector2 getDiffPos(MachineTile* mt) {
+		return this->currentPos - mt->currentPos;
+	}
+};
+
+struct IOTile {
+	MachineTile* mTile = nullptr;
+	int side = 0;
 };
 
 

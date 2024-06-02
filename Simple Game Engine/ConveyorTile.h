@@ -15,6 +15,8 @@ public:
 		init();
 	};
 
+	~ConveyorTile();
+
 	void init();
 
 	Tile* copy() override;

@@ -17,6 +17,8 @@ public:
 
 	bool canPlace(Vector2 pos);
 
+	void removeTile(Vector2 pos);
+
 private:
 
 	std::vector<Tile*> tileList;

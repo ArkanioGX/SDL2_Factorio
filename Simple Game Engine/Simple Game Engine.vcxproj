@@ -153,6 +153,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="InputComponent.cpp" />
     <ClCompile Include="InputSystem.cpp" />
+    <ClCompile Include="InventoryTile.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="KeyboardState.cpp" />
     <ClCompile Include="Log.cpp" />
@@ -192,6 +193,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="InputComponent.h" />
     <ClInclude Include="InputSystem.h" />
+    <ClInclude Include="InventoryTile.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="KeyboardState.h" />
     <ClInclude Include="Log.h" />

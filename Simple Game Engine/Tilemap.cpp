@@ -120,6 +120,11 @@ void Tilemap::setTileAtPos(float posx, float posy, Tile* t)
     TilemapContent[posy][posx] = t;
 }
 
+void Tilemap::removeTileAtPos(float posx, float posy)
+{
+    TilemapContent[posy][posx] = nullptr;
+}
+
 Vector2 Tilemap::getPosGridToLocal(float posx,float posy)
 {
     float x = posx * TilesetUsed->getTileSize() * TilesetUsed->getTileRatio().x;

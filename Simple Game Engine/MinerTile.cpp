@@ -1,7 +1,8 @@
 #include "MinerTile.h"
 #include "MachineTileComponent.h"
 
-const MinerTile MinerTile::baseMiner("baseMiner", 2, 1.0f);
+const MinerTile MinerTile::baseSMiner("baseSMiner", 2, 0.5f);
+const MinerTile MinerTile::baseIMiner("baseIMiner", 2, 0.5f);
 
 //TODO : Better ConnectNearby();
 
@@ -24,9 +25,22 @@ MinerTile::MinerTile(const MinerTile& other):
 	init();
 }
 
+IOTile MinerTile::getCurrentOutput()
+{
+	lastOutput = (lastOutput+1) % outputTile.size();
+	MachineTile* ot = outputTile[lastOutput];
+	int s = (getSideFromPos(getDiffPos(ot))+2)%4;
+	return IOTile{ot,s};
+}
+
 void MinerTile::init()
 {
-	itemCreator = new ItemContainer{ Item::Silver,0,0.0f,0,false,2 };
+	if (tileName.compare("baseSMiner") == 0) {
+		itemCreator = new ItemContainer{ Item::Silver,0,0.0f,0,false,2 };
+	}
+	else {
+		itemCreator = new ItemContainer{ Item::Iron,0,0.0f,0,false,2 };
+	}
 }
 
 Tile* MinerTile::copy()
@@ -39,9 +53,9 @@ void MinerTile::update(float dt)
 	MachineTile::update(dt);
 	if (itemCreator->t >= 1) {
 		if (outputTile.size() > 0) {
-			if (outputTile[0]->giveItem(itemCreator,0)) {
+			IOTile iot = getCurrentOutput();
+			if (iot.mTile->giveItem(itemCreator, iot.side)) {
 				itemCreator->t = itemCreator->t-1;
-				itemCreator->item = Item(Item::Silver);
 				itemCreator->isBlocked = false;
 			}
 			else {
@@ -77,7 +91,6 @@ void MinerTile::connectToNearby()
 				if (tileToCheck->canConnect(r, IOType::Input,this)) {
 					addOutput(tileToCheck);
 					tileToCheck->addInput(this);
-					ReceivingTile.push_back(IOTile{ tileToCheck,r });
 				}
 			}
 		}
@@ -86,9 +99,5 @@ void MinerTile::connectToNearby()
 
 bool MinerTile::canConnect(int side, IOType io, MachineTile* mt)
 {
-	bool isOutput = io == IOType::Output;
-	if (isOutput) {
-		ReceivingTile.push_back(IOTile{ mt,side });
-	}
-	return isOutput;
+	return io == IOType::Output;
 }

@@ -26,6 +26,9 @@ void TilePlacerComponent::processInput(const InputState& inputState)
 			placeTile(gPos);
 		}
 	}
+	if (gPos != Vector2::null && inputState.mouse.getButtonState(3) == ButtonState::Pressed) {
+		removeTile(gPos);
+	}
 
 	if (inputState.keyboard.getKeyState(SDL_SCANCODE_Q) == ButtonState::Pressed) {
 		currentRotation = ( currentRotation + 1) % 4 ;
@@ -84,4 +87,16 @@ bool TilePlacerComponent::canPlace(Vector2 pos)
 {
 	Tile* t = map->getTileAtPos(pos.x, pos.y);
 	return t == nullptr || (t->placeType == Tile::PlaceableOn::Everything && *t != tileToPlace);
+}
+
+void TilePlacerComponent::removeTile(Vector2 pos)
+{
+	Tile* t = map->getTileAtPos(pos.x, pos.y);
+	if (t != nullptr && t->type == Tile::Type::Machine) {
+		MachineTileComponent* mtc = owner.getComponent<MachineTileComponent*>();
+		if (mtc != nullptr) {
+				mtc->removeMTile(static_cast<MachineTile*>(t));
+		}
+	}
+	map->removeTileAtPos(pos.x, pos.y);
 }
