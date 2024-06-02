@@ -11,14 +11,14 @@ MinerTile::MinerTile(): MachineTile(),oreMultiplier(0)
 }
 
 MinerTile::MinerTile(std::string tname, int tID, float om):
-    MachineTile(tname, tID, 0, false, true),
+    MachineTile(tname, tID, 0, false),
     oreMultiplier(om)
 {
 	init();
 }
 
 MinerTile::MinerTile(const MinerTile& other):
-    MachineTile(other.tileName, other.tileID, other.rotation, other.canRotate, other.multiInput),
+    MachineTile(other.tileName, other.tileID, other.rotation, other.canRotate),
     oreMultiplier(other.oreMultiplier)
 {
 	init();
@@ -67,37 +67,28 @@ void MinerTile::connectToNearby()
 {
 	Tilemap* m = ownerComponent->map;
 	for (int r = 0; r < 4; r++) {
-		Vector2 next;
-		switch (r) {
-		case 0:
-			next = Vector2(-1, 0);
-			break;
-		case 1:
-			next = Vector2(0, 1);
-			break;
-		case 2:
-			next = Vector2(1, 0);
-			break;
-		case 3:
-			next = Vector2(0, -1);
-			break;
-		}
+		Vector2 next = getPosFromSide(r);
 		Vector2 nextPos = currentPos + next;
 		if (m->isInsideMap(nextPos)) {
 			Tile* nextTile = m->getTileAtPos(nextPos.x, nextPos.y);
-			if (nextTile != nullptr) {
-				if (nextTile->type == Type::Machine) {
-					MachineTile* mt = static_cast<MachineTile*>(m->getTileAtPos(nextPos.x, nextPos.y));
-					if (mt->multiInput) {
-						addOutput(mt);
-						mt->addInput(this);
-					}
-					else if ((mt->rotateID + 2) % 4 != rotateID) { //If not in the counter way
-						addOutput(mt);
-						mt->addInput(this);
-					}
+			if (nextTile != nullptr && nextTile->type == Type::Machine)
+			{
+				MachineTile* tileToCheck = static_cast<MachineTile*>(nextTile);
+				if (tileToCheck->canConnect(r, IOType::Input,this)) {
+					addOutput(tileToCheck);
+					tileToCheck->addInput(this);
+					ReceivingTile.push_back(IOTile{ tileToCheck,r });
 				}
 			}
 		}
 	}
+}
+
+bool MinerTile::canConnect(int side, IOType io, MachineTile* mt)
+{
+	bool isOutput = io == IOType::Output;
+	if (isOutput) {
+		ReceivingTile.push_back(IOTile{ mt,side });
+	}
+	return isOutput;
 }

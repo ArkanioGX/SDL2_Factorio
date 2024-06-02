@@ -5,9 +5,9 @@ class ConveyorTile : public MachineTile
 {
 public:
 	ConveyorTile() : MachineTile(), speed(0), itemSize(0), itemCList({}) { init(); };
-	ConveyorTile(std::string tname, int tID, float rot, bool cRot, float s, float is, bool mo) : MachineTile(tname, tID, rot, cRot,mo), speed(s), itemSize(is), itemCList({}) { init(); };
+	ConveyorTile(std::string tname, int tID, float rot, bool cRot, float s, float is, bool mo) : MachineTile(tname, tID, rot, cRot), speed(s), itemSize(is), itemCList({}) { init(); };
 	ConveyorTile(const ConveyorTile& other):
-		MachineTile(other.tileName,other.tileID, other.rotation, other.canRotate,other.multiInput),
+		MachineTile(other.tileName,other.tileID, other.rotation, other.canRotate),
 		speed(other.speed),
 		itemSize(other.itemSize),
 		itemCList({})
@@ -19,6 +19,7 @@ public:
 
 	Tile* copy() override;
 	void connectToNearby() override;
+	bool canConnect(int side, IOType io, MachineTile* mt) override;
 
 	static float t;
 	float speed;

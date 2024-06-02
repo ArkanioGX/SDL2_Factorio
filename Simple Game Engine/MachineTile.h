@@ -16,6 +16,18 @@ struct ItemContainer {
 
 };
 
+struct IOTile
+{
+	MachineTile* mTile;
+	int side;
+};
+
+enum IOType {
+	Output,
+	Input
+}
+;
+
 struct ItemRenderContainer {
 public:
 	Vector2 pos;
@@ -28,13 +40,12 @@ public:
 
 	MachineTile(): Tile(),inputTile({}), outputTile({}) {};
 
-	MachineTile(std::string tname, int tID, float rot, bool cRot, bool mo) : Tile(tname,tID, rot, cRot, false, Type::Machine, PlaceableOn::Everything),multiInput(mo) {};
+	MachineTile(std::string tname, int tID, float rot, bool cRot) : Tile(tname,tID, rot, cRot, false, Type::Machine, PlaceableOn::Everything) {};
 
 	MachineTile(const MachineTile& other) :
 		Tile(other.tileName,other.tileID,other.rotation,other.canRotate,false, Type::Machine, PlaceableOn::Everything),
 		inputTile(other.inputTile),
-		outputTile(other.outputTile),
-		multiInput(other.multiInput)
+		outputTile(other.outputTile)
 	{}
 
 	~MachineTile();
@@ -42,8 +53,6 @@ public:
 	Tile* copy() override;
 
 	Vector2 currentPos = Vector2::zero;
-
-	bool multiInput = false;
 
 	class MachineTileComponent* ownerComponent;
 
@@ -54,11 +63,28 @@ public:
 	virtual bool giveItem(ItemContainer* it, int side);
 
 	virtual void connectToNearby();
+	virtual bool canConnect(int side, IOType io, MachineTile* mt);
 
 	void addInput(MachineTile* mt);
 	void removeInput(MachineTile* mt);
 
 	void addOutput(MachineTile* mt);
 	void removeOutput(MachineTile* mt);
+
+	Vector2 getPosFromSide(int s) {
+		switch (s) {
+		case 0:
+			return Vector2(-1, 0);
+		case 1:
+			return Vector2(0, 1);
+		case 2:
+			return Vector2(1, 0);
+		case 3:
+			return Vector2(0, -1);
+		}
+		return Vector2(0, 0);
+	}
 };
+
+
 

@@ -11,7 +11,7 @@ void ConveyorTile::init()
 	for (int i = 0; i < itemSize; i++) {
 		float bt = (1 / float(itemSize)) * ((itemSize-1)-i);
 		ItemContainer* ic;
-		ic = new ItemContainer{ Item::None,bt,0.0f,itemSize,false,2 };
+		ic = new ItemContainer{ Item::Silver,bt,0.0f,itemSize,false,2 };
 		
 		itemCList.push_back(ic);
 	}
@@ -26,52 +26,49 @@ void ConveyorTile::connectToNearby()
 {
 	Tilemap* m = ownerComponent->map;
 	for (int r = 0; r < 4; r++) {
-		Vector2 next;
-		switch (r) {
-		case 0:
-			next = Vector2(-1, 0);
-			break;
-		case 1:
-			next = Vector2(0, 1);
-			break;
-		case 2:
-			next = Vector2(1, 0);
-			break;
-		case 3:
-			next = Vector2(0, -1);
-			break;
-		}
+		Vector2 next = getPosFromSide(r);
 		Vector2 nextPos = currentPos + next;
 		if (m->isInsideMap(nextPos)) {
 			Tile* nextTile = m->getTileAtPos(nextPos.x, nextPos.y);
-			if (r == rotateID) {
-				if (nextTile != nullptr && nextTile->type == Type::Machine) {
-					MachineTile* mt = static_cast<MachineTile*>(m->getTileAtPos(nextPos.x, nextPos.y));
-					if (mt->multiInput) {
-						addOutput(mt);
-						mt->addInput(this);
-					}
-					else if ((mt->rotateID+2)%4 != rotateID){ //If not in the counter way
-						addOutput(mt);
-						mt->addInput(this);
+			if (nextTile != nullptr && nextTile->type == Type::Machine)
+			{ 
+				MachineTile* tileToCheck = static_cast<MachineTile*>(nextTile);
+				if (r == rotateID) {
+					//Same way of the conveyor
+					if (tileToCheck->canConnect(r, IOType::Input,this)) {
+						addOutput(tileToCheck);
+						tileToCheck->addInput(this);
 					}
 				}
-			}
-			else {
-				if (nextTile != nullptr && nextTile->type == Type::Machine) {
-					MachineTile* mt = static_cast<MachineTile*>(m->getTileAtPos(nextPos.x, nextPos.y));
-					if (mt->multiInput) {
-						addInput(mt);
-						mt->addOutput(this);
-					}
-					else if ((mt->rotateID + 2) % 4 == r) {
-						addInput(mt);
-						mt->addOutput(this);
+				else {
+					//Border and back of the conveyor
+					if (tileToCheck->canConnect(r, IOType::Output,this)) {
+						addInput(tileToCheck);
+						tileToCheck->addOutput(this);
 					}
 				}
 			}
 		}
 	}
+}
+
+/// <summary>
+/// Check if the tile can connect from this side
+/// </summary>
+/// <param name="side">: Side of the I/O from the tile asking </param>
+/// <param name="io">: If the question is about being an input or an output of the tile </param>
+/// <returns>If the connection is successful </returns>
+bool ConveyorTile::canConnect(int side, IOType io,MachineTile* mt)
+{
+	switch (io) {
+		case IOType::Input:
+			return (side != ((rotateID + 2) % 4));
+		break;
+		case IOType::Output:
+			return (side == ((rotateID + 2) % 4));
+		break;
+	}
+	return false;
 }
 
 void ConveyorTile::update(float dt)
@@ -207,7 +204,7 @@ bool ConveyorTile::nextItemContainer(int contId)
 		}
 		else {
 			ic->t = itemCList[contId]->t - 1;
-			ic->inSide = (rotateID + 2) % 4;
+			ic->inSide = itemCList[contId]->inSide;
 			ic->item = itemCList[contId]->item;
 			itemCList[contId]->item = Item::None;
 			return true;

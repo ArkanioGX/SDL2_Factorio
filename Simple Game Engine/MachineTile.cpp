@@ -6,6 +6,11 @@ void MachineTile::connectToNearby()
 
 }
 
+bool MachineTile::canConnect(int side, IOType io, MachineTile* mt)
+{
+	return false;
+}
+
 MachineTile::~MachineTile()
 {
 }
