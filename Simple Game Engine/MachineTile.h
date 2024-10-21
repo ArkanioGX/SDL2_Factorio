@@ -34,15 +34,21 @@ class MachineTile : public Tile
 {
 public:
 
-	MachineTile(): Tile(),inputTile({}), outputTile({}) {};
+	MachineTile(): Tile(),inputTile({}), outputTile({}) {
+		connectToNearby();
+	};
 
-	MachineTile(std::string tname, int tID, float rot, bool cRot) : Tile(tname,tID, rot, cRot, false, Type::Machine, PlaceableOn::Everything) {};
+	MachineTile(std::string tname, int tID, float rot, bool cRot) : Tile(tname,tID, rot, cRot, false, Type::Machine, PlaceableOn::Everything) {
+		connectToNearby();
+	};
 
 	MachineTile(const MachineTile& other) :
 		Tile(other.tileName,other.tileID,other.rotation,other.canRotate,false, Type::Machine, PlaceableOn::Everything),
 		inputTile(other.inputTile),
 		outputTile(other.outputTile)
-	{}
+	{
+		connectToNearby();
+	}
 
 	~MachineTile();
 
@@ -56,6 +62,12 @@ public:
 	virtual void update(float dt);
 	virtual std::vector<ItemRenderContainer> additiveDraw();
 
+	/// <summary>
+	/// Gives the item to the tile and send a bool to confirm if the item is passed well
+	/// </summary>
+	/// <param name="it"> The current Item Container which the item we want to pass is in </param>
+	/// <param name="side"> </param>
+	/// <returns></returns>
 	virtual bool giveItem(ItemContainer* it, int side);
 
 	virtual void connectToNearby();

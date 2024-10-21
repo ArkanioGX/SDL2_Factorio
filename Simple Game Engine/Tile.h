@@ -10,6 +10,10 @@
 
 class TilemapSpriteComponent;
 
+/// <summary>
+/// Functionless Tile (Basically just a texture)
+/// </summary>
+
 class Tile
 {
 public:
