@@ -83,7 +83,7 @@ void Renderer::drawSprite(Vector2 position, float rotation,Vector2 scale, const 
 
 
 	if (Camera::mainCam != nullptr) {
-		camZoom = Camera::mainCam->getZoom() -0.2;
+		camZoom = Camera::mainCam->getZoom();
 		camPos = Camera::mainCam->getPos() * camZoom;
 	}
 

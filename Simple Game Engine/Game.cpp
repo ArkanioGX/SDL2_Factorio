@@ -15,6 +15,7 @@
 #include "MachineTileComponent.h"
 #include "MinerTile.h"
 #include "InventoryTile.h"
+#include <rapidjson/document.h>
 
 bool Game::initialize() {
 	bool isWindowInit = window.initialize();
@@ -131,6 +132,7 @@ void Game::removeActor(Actor* actor) {
 }
 
 void Game::load() {
+
 	Assets::loadTexture(renderer,"Res/Ship.png","Ship");
 	Assets::loadTexture(renderer, "Res/TerrainSimplifiedTileset.png", "TerrainTileset");
 	Assets::loadTexture(renderer, "Res/MachineTileset.png", "MachineTileset");
