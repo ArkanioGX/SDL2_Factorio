@@ -20,7 +20,7 @@ public:
 	enum PlaceableOn { Everything, Nothing, OnlyTransport };
 	enum Type { Basic, Ore, Machine };
 
-	
+	bool isInRenderedChunk = false;
 
 	static unsigned int seed;
 

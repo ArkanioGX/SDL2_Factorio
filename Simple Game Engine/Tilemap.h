@@ -6,8 +6,11 @@
 #include "Component.h"
 #include "Tile.h"
 
-struct Chunk {
+constexpr unsigned int ChunkSize = 4;
 
+struct Chunk {
+	int cx, cy;
+	Tile* Tiles[ChunkSize][ChunkSize];
 };
 
 class Tilemap : public Component
@@ -18,7 +21,7 @@ private:
 	vector<vector<Tile*>> TilemapContent;
 
 	Vector2 maxTile;
-	int ChunkSize = 8;
+	
 
 	void setTileMapFromIdMap(std::vector<std::vector<int>> &idMap);
 
@@ -29,6 +32,7 @@ public:
 	Tilemap(Actor* ownerP, Tileset* tset, bool isEmpty);
 
 	Tile* getTileAtPos(float posx, float posy);
+	Chunk* getChunk(float posx, float posy);
 
 
 	void setTileAtPos(float posx, float posy, Tile* t);

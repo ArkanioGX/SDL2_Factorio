@@ -12,10 +12,12 @@ public:
 	TilemapSpriteComponent& operator=(const TilemapSpriteComponent&) = delete;
 
 	void draw(Renderer& renderer) override;
+	void update(float dt) override;
 private:
 	Tilemap* map;
 
-	
+	Vector2 chunkRenderRadius = Vector2{ 2,2 };
+	std::vector<Chunk*> lastChunkRendered;
 };
 
 const float TILEMAP_SIZE = 4.0f;

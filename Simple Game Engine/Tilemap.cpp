@@ -114,6 +114,26 @@ Tile* Tilemap::getTileAtPos(float posx, float posy)
     return TilemapContent[posy][posx];
 }
 
+Chunk* Tilemap::getChunk(float chunkX, float chunkY)
+{
+    Chunk* chunkTemp = new Chunk();
+    chunkTemp->cx = chunkX;
+    chunkTemp->cy = chunkY;
+    for (int x = 0; x < ChunkSize; x++) {
+        for (int y = 0; y < ChunkSize; y++) {
+            int tilePosX = chunkX*ChunkSize + x;
+            int tilePosY = chunkY * ChunkSize + y;
+            if (tilePosX >= 0 && tilePosX < maxTile.x && tilePosY >= 0 && tilePosY < maxTile.y) {
+                chunkTemp->Tiles[x][y] = getTileAtPos(tilePosX, tilePosY);
+            }
+            else {
+                chunkTemp->Tiles[x][y] = nullptr;
+            }
+        }
+    }
+    return chunkTemp;
+}
+
 void Tilemap::setTileAtPos(float posx, float posy, Tile* t)
 {
     t->setRandomTID();
