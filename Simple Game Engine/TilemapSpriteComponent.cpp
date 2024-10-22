@@ -16,6 +16,8 @@ TilemapSpriteComponent::~TilemapSpriteComponent()
 
 void TilemapSpriteComponent::draw(Renderer& renderer)
 {
+
+
 	for (Chunk* currentChunk : lastChunkRendered){
 		for (int x = 0; x < ChunkSize; x++) {
 			for (int y = 0; y < ChunkSize; y++) {
@@ -24,6 +26,9 @@ void TilemapSpriteComponent::draw(Renderer& renderer)
 					Vector2 tilePos = owner.getPosition() + (map->getPosGridToLocal(currentChunk->cx*ChunkSize+x, currentChunk->cy * ChunkSize + y) * owner.getScale());
 					Rectangle tileRect = map->getRectFromID(currentTile->tileID);
 					float rot = currentTile->rotation;
+					
+					texture.toSDLTexture();
+
 					renderer.drawSprite(tilePos, rot, owner.getScale(), texture, tileRect, Vector2::zero, Renderer::Flip::None);
 				}
 			}

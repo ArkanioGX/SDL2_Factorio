@@ -31,3 +31,8 @@ void SpriteComponent::draw(Renderer& renderer)
 	Vector2 origin{ texWidth / 2.f, texHeight / 2.f };
 	renderer.drawSprite(owner, texture, rect, origin, Renderer::Flip::None);
 }
+
+void SpriteComponent::setAlpha(int a)
+{
+	SDL_SetTextureAlphaMod(texture.toSDLTexture(), a);
+}

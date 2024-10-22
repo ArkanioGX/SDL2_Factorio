@@ -173,6 +173,7 @@
     <ClCompile Include="Tilemap.cpp" />
     <ClCompile Include="TilemapSpriteComponent.cpp" />
     <ClCompile Include="TilePlacerComponent.cpp" />
+    <ClCompile Include="TilePlacerRenderComponent.cpp" />
     <ClCompile Include="Tileset.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Vector2.cpp" />
@@ -213,6 +214,7 @@
     <ClInclude Include="Tilemap.h" />
     <ClInclude Include="TilemapSpriteComponent.h" />
     <ClInclude Include="TilePlacerComponent.h" />
+    <ClInclude Include="TilePlacerRenderComponent.h" />
     <ClInclude Include="Tileset.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Vector2.h" />

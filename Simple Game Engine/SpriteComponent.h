@@ -15,6 +15,8 @@ public:
 	virtual void setTexture(const Texture& textureP);
 	virtual void draw(Renderer& renderer);
 
+	void setAlpha(int a);
+
 	int getDrawOrder() const { return drawOrder; }
 	int getTexWidth() const { return texWidth; }
 	int getTxHeight() const { return texHeight; }
