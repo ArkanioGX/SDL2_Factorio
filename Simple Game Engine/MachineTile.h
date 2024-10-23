@@ -38,12 +38,12 @@ public:
 		connectToNearby();
 	};
 
-	MachineTile(std::string tname, int tID, float rot, bool cRot) : Tile(tname,tID, rot, cRot, false, Type::Machine, PlaceableOn::Everything) {
+	MachineTile(std::string tname, int tID, float rot, bool cRot, std::vector<BuildMode> bm ={ BuildMode::Single }) : Tile(tname,tID, rot, cRot, false, Type::Machine, PlaceableOn::Everything, bm) {
 		connectToNearby();
 	};
 
 	MachineTile(const MachineTile& other) :
-		Tile(other.tileName,other.tileID,other.rotation,other.canRotate,false, Type::Machine, PlaceableOn::Everything),
+		Tile(other.tileName,other.tileID,other.rotation,other.canRotate,false, Type::Machine, PlaceableOn::Everything, other.currentBMode),
 		inputTile(other.inputTile),
 		outputTile(other.outputTile)
 	{
@@ -80,6 +80,7 @@ public:
 	void removeOutput(MachineTile* mt);
 
 	void ClearAllIO();
+	
 
 	Vector2 getPosFromSide(int s) {
 		switch (s) {

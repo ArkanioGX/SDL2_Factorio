@@ -20,12 +20,35 @@ TilePlacerComponent::TilePlacerComponent(Actor* ownerP, Tilemap* tmap, std::vect
 
 void TilePlacerComponent::processInput(const InputState& inputState)
 {
+	BuildMode currentBMode = tileToPlace->currentBMode[0];
 	Vector2 gPos = map->getGridPosFromScreen(inputState.mouse.getPosition().x, inputState.mouse.getPosition().y);
-	if (gPos != Vector2::null && inputState.mouse.getButtonState(1) == ButtonState::Held){
-		placePreviewTile(gPos);
+	if (gPos != Vector2::null && inputState.mouse.getButtonState(1) == ButtonState::Pressed) {
+		switch (currentBMode) {
+		case BuildMode::Single:
+			placePreviewTile(gPos);
+			break;
+		case BuildMode::StraightLine:
+			beginLine = gPos;
+			ComputeLinePos(gPos);
+			break;
+		}
+		
+	}
+	else if (gPos != Vector2::null && inputState.mouse.getButtonState(1) == ButtonState::Held){
+		switch (currentBMode) {
+		case BuildMode::Single:
+			placePreviewTile(gPos);
+			break;
+		case BuildMode::StraightLine:
+			ComputeLinePos(gPos);
+			break;
+		}
 	}
 	else if (inputState.mouse.getButtonState(1) == ButtonState::Released) {
 		lastTilePos = Vector2(-1, -1);
+		beginLine = Vector2(-1, -1);
+		lastEndLine = Vector2(-1, -1);
+		pLineTileList.clear();
 	}
 	
 	if (gPos != Vector2::null && inputState.mouse.getButtonState(3) == ButtonState::Pressed) {
@@ -92,6 +115,71 @@ void TilePlacerComponent::placePreviewTile(Vector2 pos)
 	}
 }
 
+void TilePlacerComponent::ComputeLinePos(Vector2 pos)
+{
+
+	Vector2 line = pos - beginLine;
+	int tileN = 0;
+	//Line is horizontal
+	if (abs(line.x) >= abs(line.y)) 
+	{
+		line.y = 0;
+		tileN = abs(line.x);
+	}
+	else {
+		line.x = 0;
+		tileN = abs(line.y);
+	}
+	Vector2 tempEndLine = beginLine + line;
+	
+	if (tempEndLine != lastEndLine && line.length() > 0) {
+		removeFromPreview(pLineTileList);
+		Vector2 lineDir = line;
+		lineDir.normalize();
+		lastEndLine = tempEndLine;
+		for (int i = 0; i < tileN; i++) {
+			PreviewTile tp;
+			tp.pos = beginLine + (lineDir*i);
+			std::vector<PreviewTile>::iterator tPlace = std::find(pTileList.begin(), pTileList.end(), tp);
+			if (tPlace != pTileList.end()) {
+				delete (*tPlace).tile;
+				pTileList.erase(tPlace);
+			}
+			Tile* t = tileToPlace->copy();
+
+			if (t->canRotate) {
+				if (lineDir.x != 0) {
+					if (lineDir.x >= 0) {
+						t->rotation = 2 * Maths::piOver2;
+						t->rotateID = 2;
+					}
+					else {
+						t->rotation = 4 * Maths::piOver2;
+						t->rotateID = 4;
+					}
+				}
+				else {
+					if (lineDir.y >= 0) {
+						t->rotation = 1 * Maths::piOver2;
+						t->rotateID = 1;
+					}
+					else {
+						t->rotation = 3 * Maths::piOver2;
+						t->rotateID = 3;
+					}
+				}
+
+				 
+			}
+
+
+			tp.tile = t;
+			pLineTileList.push_back(tp);
+			pTileList.push_back(tp);
+		}
+	}
+}
+
 void TilePlacerComponent::placeTile(Vector2 pos, Tile* t)
 {
 	if (t->type == Tile::Type::Machine) {
@@ -132,6 +220,27 @@ void TilePlacerComponent::removeTile(Vector2 pos)
 		}
 	}
 	map->removeTileAtPos(pos.x, pos.y);
+}
+
+void TilePlacerComponent::clearPreview()
+{
+	while (!pTileList.empty()) {
+		delete pTileList.back().tile;
+		pTileList.pop_back();
+	}
+}
+
+void TilePlacerComponent::removeFromPreview(std::vector<PreviewTile> ptl)
+{
+	
+	for (int i = 0; i < ptl.size(); i++) {
+		PreviewTile t = ptl[i];
+		std::vector<PreviewTile>::iterator tPlace = std::find(pTileList.begin(), pTileList.end(), t);
+		if (tPlace != pTileList.end()) {
+			delete (*tPlace).tile;
+			pTileList.erase(tPlace);
+		}
+	}
 }
 
 std::vector<PreviewTile> TilePlacerComponent::getPrevewTiles()

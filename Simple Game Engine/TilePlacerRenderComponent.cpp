@@ -31,4 +31,5 @@ void TilePlacerRenderComponent::draw(Renderer& renderer)
 			renderer.drawSprite(tilePos, rot, owner.getScale(), texture, tileRect, Vector2::zero, Renderer::Flip::None);
 		}
 	}
+
 }

@@ -27,11 +27,16 @@ public:
 
 	void placePreviewTile(Vector2 pos);
 
+	void ComputeLinePos(Vector2 pos);
+
 	void placeTile(Vector2 pos, Tile* t);
 
 	bool canPlace(Vector2 pos);
 
 	void removeTile(Vector2 pos);
+
+	void clearPreview();
+	void removeFromPreview(std::vector<PreviewTile> ptl);
 
 	std::vector<PreviewTile> getPrevewTiles();
 
@@ -40,6 +45,7 @@ private:
 	std::vector<Tile*> tileList;
 
 	std::vector<PreviewTile> pTileList;
+	std::vector<PreviewTile> pLineTileList;
 
 	int currentRotation = 0;
 
@@ -49,6 +55,9 @@ private:
 	
 	Tile* tileToPlace;
 	Vector2 lastTilePos = Vector2(-1,-1);
+
+	Vector2 beginLine = Vector2(-1, -1);
+	Vector2 lastEndLine = Vector2(0, 0);
 
 	std::map<SDL_Scancode, int> inputMap{
 		{SDL_SCANCODE_0,9},
