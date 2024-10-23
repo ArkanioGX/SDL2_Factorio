@@ -16,6 +16,7 @@
 #include "MinerTile.h"
 #include "InventoryTile.h"
 #include <rapidjson/document.h>
+#include "TilePlacerRenderComponent.h"
 
 bool Game::initialize() {
 	bool isWindowInit = window.initialize();
@@ -159,6 +160,7 @@ void Game::load() {
 	Actor* worldTM= new Actor();
 	
 	Tilemap* tmap = new Tilemap(worldTM, worldTset,false);
+	
 	TilemapSpriteComponent* tmsc = new TilemapSpriteComponent(worldTM, tmap);
 	{
 		Vector2 min = Vector2::zero;
@@ -175,6 +177,7 @@ void Game::load() {
 	Actor* machineTM = new Actor();
 	Tilemap* tmap2 = new Tilemap(machineTM, machineTset,true);
 	TilemapSpriteComponent* tmsc2 = new TilemapSpriteComponent(machineTM, tmap2);
+	
 	TilePlacerComponent* tpc2 = new TilePlacerComponent(machineTM, tmap2, std::vector<Tile*>{
 		new ConveyorTile(ConveyorTile::base), //Conveyor lv 1
 		new ConveyorTile(ConveyorTile::upgrade), //Conveyor lv 2
@@ -182,6 +185,7 @@ void Game::load() {
 		new MinerTile(MinerTile::baseIMiner), //Miner Tile (Iron Variant)
 		new InventoryTile(InventoryTile::baseInventory) //Tile Storage (unused)
 	});
+	TilePlacerRenderComponent* tprc = new TilePlacerRenderComponent(machineTM, tmap2, tpc2);
 	MachineTileComponent* mtc = new MachineTileComponent(machineTM,tmap2);
 }
 

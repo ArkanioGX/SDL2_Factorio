@@ -22,12 +22,18 @@ void TilePlacerComponent::processInput(const InputState& inputState)
 {
 	Vector2 gPos = map->getGridPosFromScreen(inputState.mouse.getPosition().x, inputState.mouse.getPosition().y);
 	if (gPos != Vector2::null && inputState.mouse.getButtonState(1) == ButtonState::Held){
-		if (canPlace(gPos)) {
-			placeTile(gPos);
-		}
+		placePreviewTile(gPos);
 	}
+	else if (inputState.mouse.getButtonState(1) == ButtonState::Released) {
+		lastTilePos = Vector2(-1, -1);
+	}
+	
 	if (gPos != Vector2::null && inputState.mouse.getButtonState(3) == ButtonState::Pressed) {
 		removeTile(gPos);
+	}
+
+	if (inputState.keyboard.getKeyState(SDL_SCANCODE_RETURN) == ButtonState::Pressed) {
+		confirmBuild();
 	}
 
 	if (inputState.keyboard.getKeyState(SDL_SCANCODE_Q) == ButtonState::Pressed) {
@@ -54,13 +60,40 @@ void TilePlacerComponent::setNewTileToPlace(const InputState& inputState)
 	}
 }
 
-void TilePlacerComponent::placeTile(Vector2 pos)
+void TilePlacerComponent::confirmBuild()
 {
-	Tile* t = tileToPlace->copy();
-	if (t->canRotate) {
-		t->rotation = currentRotation * Maths::piOver2;
-		t->rotateID = currentRotation % 4;
+	for (PreviewTile t : pTileList) {
+		placeTile(t.pos, t.tile);
 	}
+	pTileList.clear();
+}
+
+void TilePlacerComponent::placePreviewTile(Vector2 pos)
+{
+	if (canPlace(pos) && pos != lastTilePos) {
+		PreviewTile tp;
+		lastTilePos = pos;
+		tp.pos = pos;
+		std::vector<PreviewTile>::iterator tPlace = std::find(pTileList.begin(), pTileList.end(), tp);
+		if ( tPlace != pTileList.end()) {
+			delete (*tPlace).tile;
+		}
+		Tile* t = tileToPlace->copy();
+		
+		if (t->canRotate) {
+			t->rotation = currentRotation * Maths::piOver2;
+			t->rotateID = currentRotation % 4;
+		}
+
+		
+		tp.tile = t;
+
+		pTileList.push_back(tp);
+	}
+}
+
+void TilePlacerComponent::placeTile(Vector2 pos, Tile* t)
+{
 	if (t->type == Tile::Type::Machine) {
 		MachineTileComponent* mtc = owner.getComponent<MachineTileComponent*>();
 		if (mtc != nullptr) {
@@ -99,4 +132,9 @@ void TilePlacerComponent::removeTile(Vector2 pos)
 		}
 	}
 	map->removeTileAtPos(pos.x, pos.y);
+}
+
+std::vector<PreviewTile> TilePlacerComponent::getPrevewTiles()
+{
+	return pTileList;
 }

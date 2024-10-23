@@ -8,6 +8,13 @@
 #include "Log.h"
 #include <string>
 
+enum BuildMode
+{
+	StraightLine,
+	Single,
+	RectangleFill
+};
+
 class TilemapSpriteComponent;
 
 /// <summary>
@@ -24,9 +31,9 @@ public:
 
 	static unsigned int seed;
 
-	Tile() : tileID(0), randomTileID(false),randomRotate(false), rotation(0), canRotate(true), type(Type::Basic), placeType(PlaceableOn::Nothing) {};
-	Tile(std::string tname, int tID, float rot, bool cRot,bool rRot, Type t, PlaceableOn pOn) : tileName(tname), tileID(tID),  randomTileID(false), rotation(rot), canRotate(cRot),randomRotate(rRot), type(t), placeType(pOn) {}
-	Tile(std::string tname, std::vector<int> tID,  float rot, bool cRot, bool rRot,Type t, PlaceableOn pOn) :tileName(tname), tileIDlist(tID),tileID(tID[0]), randomTileID(true), rotation(rot), canRotate(cRot), randomRotate(rRot), type(t), placeType(pOn) {
+	Tile() : tileID(0), randomTileID(false), randomRotate(false), rotation(0), canRotate(true), type(Type::Basic), placeType(PlaceableOn::Nothing), currentBMode({BuildMode::Single}) {};
+	Tile(std::string tname, int tID, float rot, bool cRot,bool rRot, Type t, PlaceableOn pOn) : tileName(tname), tileID(tID),  randomTileID(false), rotation(rot), canRotate(cRot),randomRotate(rRot), type(t), placeType(pOn), currentBMode({ BuildMode::Single }) {}
+	Tile(std::string tname, std::vector<int> tID,  float rot, bool cRot, bool rRot,Type t, PlaceableOn pOn) :tileName(tname), tileIDlist(tID),tileID(tID[0]), randomTileID(true), rotation(rot), canRotate(cRot), randomRotate(rRot), type(t), placeType(pOn), currentBMode({ BuildMode::Single }) {
 	}
 
 	Tile(const Tile& other) : 
@@ -49,11 +56,13 @@ public:
 	float rotation;
 	int tileID;
 	std::vector<int> tileIDlist;
+	std::vector<BuildMode> currentBMode;
 	Type type;
 	PlaceableOn placeType;
 	bool randomTileID;
 	std::string tileName;
 	std::string name;
+
 
 	
 
