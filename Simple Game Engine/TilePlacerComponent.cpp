@@ -100,6 +100,7 @@ void TilePlacerComponent::placePreviewTile(Vector2 pos)
 		std::vector<PreviewTile>::iterator tPlace = std::find(pTileList.begin(), pTileList.end(), tp);
 		if ( tPlace != pTileList.end()) {
 			delete (*tPlace).tile;
+			pTileList.erase(tPlace);
 		}
 		Tile* t = tileToPlace->copy();
 		
@@ -154,8 +155,8 @@ void TilePlacerComponent::ComputeLinePos(Vector2 pos)
 						t->rotateID = 2;
 					}
 					else {
-						t->rotation = 4 * Maths::piOver2;
-						t->rotateID = 4;
+						t->rotation = 0;
+						t->rotateID = 0;
 					}
 				}
 				else {
@@ -186,6 +187,7 @@ void TilePlacerComponent::placeTile(Vector2 pos, Tile* t)
 		MachineTileComponent* mtc = owner.getComponent<MachineTileComponent*>();
 		if (mtc != nullptr) {
 			MachineTile* mt = static_cast<MachineTile*>(t);
+			mt->ClearAllIO();
 			mtc->addMTile(mt);
 			mt->currentPos = pos;
 			mt->connectToNearby();
