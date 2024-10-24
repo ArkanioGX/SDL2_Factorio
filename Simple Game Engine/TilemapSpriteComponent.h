@@ -16,7 +16,7 @@ public:
 private:
 	Tilemap* map;
 
-	Vector2 chunkRenderRadius = Vector2{ 2.5,2.5 };
+	Vector2 chunkRenderRadius = Vector2{ 2.1,1.6 };
 	std::vector<Chunk*> lastChunkRendered;
 };
 

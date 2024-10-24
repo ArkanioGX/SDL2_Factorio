@@ -33,7 +33,7 @@ public:
 class MachineTile : public Tile
 {
 public:
-
+	
 	MachineTile(): Tile(),inputTile({}), outputTile({}) {
 		connectToNearby();
 	};
@@ -50,7 +50,7 @@ public:
 		connectToNearby();
 	}
 
-	~MachineTile();
+	~MachineTile() override;
 
 	Tile* copy() override;
 

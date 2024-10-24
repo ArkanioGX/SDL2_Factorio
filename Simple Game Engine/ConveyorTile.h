@@ -15,7 +15,7 @@ public:
 		init();
 	};
 
-	~ConveyorTile();
+	~ConveyorTile() override;
 
 	void init();
 

@@ -6,7 +6,7 @@ TilePlacerRenderComponent::TilePlacerRenderComponent(Actor* ownerP, Tilemap* tma
 	map(tmap),
 	tpc(TPC)
 {
-	SDL_SetTextureAlphaMod(texture.toSDLTexture(), 100);
+	SDL_SetTextureAlphaMod(texture.toSDLTexture(), 140);
 	
 }
 

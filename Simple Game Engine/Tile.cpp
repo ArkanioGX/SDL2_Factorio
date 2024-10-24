@@ -26,6 +26,10 @@ void Tile::setRandomTID()
 	seed++;
 }
 
+Tile::~Tile()
+{
+}
+
 Tile* Tile::copy()
 {
 	return new Tile(*this);

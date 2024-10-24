@@ -52,7 +52,18 @@ void TilePlacerComponent::processInput(const InputState& inputState)
 	}
 	
 	if (gPos != Vector2::null && inputState.mouse.getButtonState(3) == ButtonState::Pressed) {
-		removeTile(gPos);
+		PreviewTile tp;
+		tp.pos = gPos;
+		std::vector<PreviewTile>::iterator tPlace = std::find(pTileList.begin(), pTileList.end(), tp);
+		//Delete in the map if no tile found in preview at the position
+		if (tPlace == pTileList.end()) {
+			removeTile(gPos);
+		}
+		else {
+			delete (*tPlace).tile;
+			pTileList.erase(tPlace);
+		}
+		
 	}
 
 	if (inputState.keyboard.getKeyState(SDL_SCANCODE_RETURN) == ButtonState::Pressed) {
@@ -151,25 +162,22 @@ void TilePlacerComponent::ComputeLinePos(Vector2 pos)
 			if (t->canRotate) {
 				if (lineDir.x != 0) {
 					if (lineDir.x >= 0) {
-						t->rotation = 2 * Maths::piOver2;
-						t->rotateID = 2;
+						lastRotate = 2;
 					}
 					else {
-						t->rotation = 0;
-						t->rotateID = 0;
+						lastRotate = 0;
 					}
 				}
 				else {
 					if (lineDir.y >= 0) {
-						t->rotation = 1 * Maths::piOver2;
-						t->rotateID = 1;
+						lastRotate = 1;
 					}
 					else {
-						t->rotation = 3 * Maths::piOver2;
-						t->rotateID = 3;
+						lastRotate = 3;
 					}
 				}
-
+				t->rotation = lastRotate * Maths::piOver2;
+				t->rotateID = lastRotate;
 				 
 			}
 
@@ -178,6 +186,27 @@ void TilePlacerComponent::ComputeLinePos(Vector2 pos)
 			pLineTileList.push_back(tp);
 			pTileList.push_back(tp);
 		}
+	}
+	else if (tempEndLine != lastEndLine) {
+		removeFromPreview(pLineTileList);
+		Vector2 lineDir = line;
+		lineDir.normalize();
+		lastEndLine = tempEndLine;
+		PreviewTile tp;
+		tp.pos = beginLine;
+		std::vector<PreviewTile>::iterator tPlace = std::find(pTileList.begin(), pTileList.end(), tp);
+		if (tPlace != pTileList.end()) {
+			delete (*tPlace).tile;
+			pTileList.erase(tPlace);
+		}
+		Tile* t = tileToPlace->copy();
+		if (t->canRotate) {
+			t->rotation = lastRotate * Maths::piOver2;
+			t->rotateID = lastRotate;
+		}
+		tp.tile = t;
+		pLineTileList.push_back(tp);
+		pTileList.push_back(tp);
 	}
 }
 

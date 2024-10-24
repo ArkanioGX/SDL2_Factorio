@@ -31,6 +31,8 @@ public:
 
 	static unsigned int seed;
 
+	virtual ~Tile();
+
 	Tile() : tileID(0), randomTileID(false), randomRotate(false), rotation(0), canRotate(true), type(Type::Basic), placeType(PlaceableOn::Nothing), currentBMode({BuildMode::Single}) {};
 	Tile(std::string tname, int tID, float rot, bool cRot,bool rRot, Type t, PlaceableOn pOn, std::vector<BuildMode> bm = {BuildMode::Single}) : tileName(tname), tileID(tID), randomTileID(false), rotation(rot), canRotate(cRot), randomRotate(rRot), type(t), placeType(pOn), currentBMode(bm) {}
 	Tile(std::string tname, std::vector<int> tID,  float rot, bool cRot, bool rRot,Type t, PlaceableOn pOn, std::vector<BuildMode> bm = { BuildMode::Single }) :tileName(tname), tileIDlist(tID),tileID(tID[0]), randomTileID(true), rotation(rot), canRotate(cRot), randomRotate(rRot), type(t), placeType(pOn), currentBMode(bm) {

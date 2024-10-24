@@ -38,6 +38,7 @@ void Game::loop() {
 		update(dt);
 		render();
 		timer.delayTime();
+		
 	}
 	
 
@@ -137,7 +138,7 @@ void Game::load() {
 	Assets::loadTexture(renderer,"Res/Ship.png","Ship");
 	Assets::loadTexture(renderer, "Res/TerrainSimplifiedTileset.png", "TerrainTileset");
 	Assets::loadTexture(renderer, "Res/MachineTileset.png", "MachineTileset");
-	Assets::loadTexture(renderer, "Res/MachineTileset.png", "MachineTilesetAlpha");
+	Assets::loadTexture(renderer, "Res/MachineTileAlt.png", "MachineTilesetAlpha");
 	//Assets::loadTexture(renderer, "Res/TS_Dungeon1.png", "TerrainTileset");
 	
 	Assets::loadTexture(renderer, "Res/TestTileset.png", "TestTileset");

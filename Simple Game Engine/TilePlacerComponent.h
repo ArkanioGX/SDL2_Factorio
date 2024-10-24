@@ -48,6 +48,7 @@ private:
 	std::vector<PreviewTile> pLineTileList;
 
 	int currentRotation = 0;
+	int lastRotate = 0;
 
 	int currentTilePlacedOrder = 0;
 
