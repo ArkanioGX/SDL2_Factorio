@@ -141,43 +141,40 @@ void Game::load() {
 	Assets::loadTexture(renderer, "Res/Silver.png", "Silver");
 
 	
-	//Camera
 	Actor* camActor = new Actor();
-	Camera* camera = new Camera(camActor,Vector2(700,500),0.5);
+	Camera* camera = new Camera(camActor,Vector2(0,0),2);
 	CameraControllerComponent* CCC = new CameraControllerComponent(camActor);
 
 	//Load Tileset
 	Tileset* worldTset = new Tileset(Assets::getTexture("TerrainTileset"), 16);
 	Tileset* machineTset = new Tileset(Assets::getTexture("MachineTileset"), 16);
 
-
-	//main Tilemap
+	//test Tilemap
 	
 	Actor* worldTM= new Actor();
 	
 	Tilemap* tmap = new Tilemap(worldTM, worldTset,false);
 	TilemapSpriteComponent* tmsc = new TilemapSpriteComponent(worldTM, tmap);
+
+	
+
 	{
 		Vector2 min = Vector2::zero;
 		Vector2 max = Vector2::zero;
 
-		//Get the tilemap limit
 		tmap->getLimit(min, max);
-
-		//Set the clamp to the camera
 		CCC->setLimit(min, max);
 	}
 
-	//Machine Tilemap Setup
 	Actor* machineTM = new Actor();
 	Tilemap* tmap2 = new Tilemap(machineTM, machineTset,true);
 	TilemapSpriteComponent* tmsc2 = new TilemapSpriteComponent(machineTM, tmap2);
 	TilePlacerComponent* tpc2 = new TilePlacerComponent(machineTM, tmap2, std::vector<Tile*>{
-		new ConveyorTile(ConveyorTile::base), //Conveyor lv 1
-		new ConveyorTile(ConveyorTile::upgrade), //Conveyor lv 2
-		new MinerTile(MinerTile::baseSMiner), //Miner Tile (Silver Variant)
-		new MinerTile(MinerTile::baseIMiner), //Miner Tile (Iron Variant)
-		new InventoryTile(InventoryTile::baseInventory) //Tile Storage (unused)
+		new ConveyorTile(ConveyorTile::base),
+		new ConveyorTile(ConveyorTile::upgrade),
+		new MinerTile(MinerTile::baseSMiner),
+		new MinerTile(MinerTile::baseIMiner),
+		new InventoryTile(InventoryTile::baseInventory)
 	});
 	MachineTileComponent* mtc = new MachineTileComponent(machineTM,tmap2);
 }

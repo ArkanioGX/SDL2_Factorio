@@ -4,6 +4,8 @@
 const MinerTile MinerTile::baseSMiner("baseSMiner", 2, 0.5f);
 const MinerTile MinerTile::baseIMiner("baseIMiner", 2, 0.5f);
 
+//TODO : Better ConnectNearby();
+
 MinerTile::MinerTile(): MachineTile(),oreMultiplier(0)
 {
 	init();

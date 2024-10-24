@@ -16,7 +16,7 @@ TilemapSpriteComponent::~TilemapSpriteComponent()
 
 void TilemapSpriteComponent::draw(Renderer& renderer)
 {
-	Vector2 max = map->getMaxChunks();
+	Vector2 max = map->getMaxTile();
 
 	int tileNumberH = max.y;
 	int tileNumberW = max.x;

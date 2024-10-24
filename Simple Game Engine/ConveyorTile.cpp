@@ -7,7 +7,7 @@ const ConveyorTile ConveyorTile::upgrade("upgradedConveyor", 0, 0.0f, true, 4, 4
 
 ConveyorTile::~ConveyorTile()
 {
-	MachineTile::~MachineTile();
+	ClearAllIO();
 	itemCList.clear();
 }
 

@@ -77,10 +77,6 @@ void MachineTile::removeOutput(MachineTile* mt)
 	}
 }
 
-
-/// <summary>
-/// Clears all reference if this tile in others to avoid call to an inexistant tile
-/// </summary>
 void MachineTile::ClearAllIO()
 {
 	while (!inputTile.empty()) {

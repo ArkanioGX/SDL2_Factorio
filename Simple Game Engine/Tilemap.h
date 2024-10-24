@@ -6,10 +6,6 @@
 #include "Component.h"
 #include "Tile.h"
 
-struct Chunk {
-
-};
-
 class Tilemap : public Component
 {
 private:
@@ -18,7 +14,6 @@ private:
 	vector<vector<Tile*>> TilemapContent;
 
 	Vector2 maxTile;
-	int ChunkSize = 8;
 
 	void setTileMapFromIdMap(std::vector<std::vector<int>> &idMap);
 
@@ -30,14 +25,12 @@ public:
 
 	Tile* getTileAtPos(float posx, float posy);
 
-
 	void setTileAtPos(float posx, float posy, Tile* t);
 	void removeTileAtPos(float posx, float posy);
 
 	Vector2 getPosGridToLocal(float posx,float posy);
 
 	Vector2 getMaxTile() { return maxTile; }
-	Vector2 getMaxChunks() { return Vector2(ceil(maxTile.x/ChunkSize), ceil(maxTile.y / ChunkSize )); }
 
 	Rectangle getRectFromID(int id) { return TilesetUsed->getRect(id); }
 
